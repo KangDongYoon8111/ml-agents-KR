@@ -7,20 +7,9 @@
 ([latest release](https://github.com/Unity-Technologies/ml-agents/releases/tag/latest_release))
 ([all releases](https://github.com/Unity-Technologies/ml-agents/releases))
 
-**The Unity Machine Learning Agents Toolkit** (ML-Agents) is an open-source
-project that enables games and simulations to serve as environments for
-training intelligent agents. We provide implementations (based on PyTorch)
-of state-of-the-art algorithms to enable game developers and hobbyists to easily
-train intelligent agents for 2D, 3D and VR/AR games. Researchers can also use the
-provided simple-to-use Python API to train Agents using reinforcement learning,
-imitation learning, neuroevolution, or any other methods. These trained agents can be
-used for multiple purposes, including controlling NPC behavior (in a variety of
-settings such as multi-agent and adversarial), automated testing of game builds
-and evaluating different game design decisions pre-release. The ML-Agents
-Toolkit is mutually beneficial for both game developers and AI researchers as it
-provides a central platform where advances in AI can be evaluated on Unity’s
-rich environments and then made accessible to the wider research and game
-developer communities.
+**The Unity Machine Learning Agents Toolkit** (ML-Agents) 은 게임과 시뮬레이션이 지능형 에이전트를 훈련하는 환경으로 활용될 수 있도록 하는 오픈 소스 프로젝트입니다. 우리는 게임 개발자와 취미로 개발하는 이들이 2D, 3D 및 VR/AR 게임을 위해 지능형 에이전트를 쉽게 훈련할 수 있도록 최신 알고리즘을 PyTorch 기반으로 구현하여 제공합니다. 연구자들은 제공된 간단한 Python API를 사용하여 강화 학습, 모방 학습, 신경 진화 또는 기타 방법을 통해 에이전트를 훈련할 수 있습니다. 훈련된 에이전트는 NPC 행동 제어(다양한 설정에서의 다중 에이전트 및 경쟁 환경 포함), 게임 빌드의 자동 테스트, 출시 전 다양한 게임 디자인 결정 평가 등 여러 용도로 사용될 수 있습니다. ML-Agents 툴킷은 게임 개발자와 AI 연구자 모두에게 상호 이익이 되며, AI의 발전을 Unity의 다양한 환경에서 평가하고 이를 더 넓은 연구 및 게임 개발 커뮤니티에 제공할 수 있는 중앙 플랫폼을 제공합니다.
+
+
 
 ## Features
 - 17+ [example Unity environments](Learning-Environment-Examples.md)
