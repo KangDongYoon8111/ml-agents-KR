@@ -4,46 +4,40 @@ ML-Agents Toolkit은 여러 구성 요소로 이루어져 있습니다.:
 
 - Unity 패키지 ([`com.unity.ml-agents`](../com.unity.ml-agents/))는 Unity 프로젝트에 통합될 Unity C# SDK를 포함하고 있습니다. 이 패키지에는 ML-Agents를 시작하는 데 도움이 되는 샘플이 포함되어 있습니다.
 - Unity 패키지
-  ([`com.unity.ml-agents.extensions`](../com.unity.ml-agents.extensions/))는 아직 기본 ₩com.unity.ml-agents₩
+  ([`com.unity.ml-agents.extensions`](../com.unity.ml-agents.extensions/))는 아직 기본 `com.unity.ml-agents`
   패키지의 일부가 되지 않은 실험적인 C#/Unity 구성 요소를 포함하고 있습니다.
   `com.unity.ml-agents.extensions`는 `com.unity.ml-agents`에 직접 의존성을 가집니다.
 - 2개의 Python 패키지:
   - [`mlagents`](../ml-agents/)는 Unity 장면에서 행동을 훈련할 수 있게 해주는 머신 러닝 알고리즘을 포함하고 있습니다.
     ML-Agents의 대부분 사용자들은 `mlagents`를 직접 설치하면 충분합니다.
   - [`mlagents_envs`](../ml-agents-envs/)는 Unity 장면과 상호작용할 수 있는 Python API 세트를 포함하고 있습니다.
-    이는 Unity 장면과 Python 머신 러닝 알고리즘 간의 데이터 메시징을 용이하게 하는 기본 레이어입니다. 따라서 mlagents는
+    이는 Unity 장면과 Python 머신 러닝 알고리즘 간의 데이터 메시징을 용이하게 하는 기본 레이어입니다. 따라서 `mlagents`는
     `mlagents_envs`에 의존합니다.
 - Unity [Project](https://github.com/Unity-Technologies/ml-agents/tree/main/Project/)는 툴킷의 다양한 기능을 강조하는
   여러 [example environments(예제 환경)](Learning-Environment-Examples.md)을 포함하고 있어 시작하는 데 도움을 줍니다.
 
-Consequently, to install and use the ML-Agents Toolkit you will need to:
+따라서 ML-Agents Toolkit을 설치하고 사용하기 위해서는 다음이 필요합니다:
 
-- Install Unity (2023.2 or later)
-- Install Python (>= 3.10.1, <=3.10.12) - we recommend using 3.10.12
+- Unity 설치 (2023.2 이상)
+- Python 설치 (>= 3.10.1, <=3.10.12) 3.10.12 버전을 사용하는 것을 권장합니다.
 - Clone this repository (Recommended for the latest version and bug fixes)
-  - __Note:__ If you do not clone the repository, then you will not be
-  able to access the example environments and training configurations or the
-  `com.unity.ml-agents.extensions` package. Additionally, the
-  [Getting Started Guide](Getting-Started.md) assumes that you have cloned the
-  repository.
-- Install the `com.unity.ml-agents` Unity package
-- Install the `com.unity.ml-agents.extensions` Unity package (Optional)
-- Install the `mlagents-envs`
-- Install the `mlagents` Python package
+  - 참고: 저장소를 클론하지 않으면 예제 환경, 훈련 구성 및 com.unity.ml-agents.extensions 패키지에 접근할 수 없습니다. 또한,
+  [Getting Started Guide](Getting-Started.md)는 저장소를 클론한 것으로 가정하고 있습니다.
+- `com.unity.ml-agents` Unity 패키지
+- `com.unity.ml-agents.extensions` Unity 패키지 (선택 사항).
+- `mlagents-envs` 설치
+- `mlagents` Python 패키지 설치
 
-### Install **Unity 2023.2** or Later
+### Install **Unity 2023.2** or Later(Unity 2023.2 이상을 설치)
 
-[Download](https://unity3d.com/get-unity/download) and install Unity. We
-strongly recommend that you install Unity through the Unity Hub as it will
-enable you to manage multiple Unity versions.
+Unity를 [Download(다운로드)](https://unity3d.com/get-unity/download)하고 설치하세요. Unity Hub를 통해 설치하는 것을 강력히 권장합니다. 
+이렇게 하면 여러 Unity 버전을 관리할 수 있습니다.
 
-### Install **Python 3.10.12**
+### Install **Python 3.10.12**(Python 3.10.12 설치)
 
-We recommend [installing](https://www.python.org/downloads/) Python 3.10.12.
-If you are using Windows, please install the x86-64 version and not x86.
-If your Python environment doesn't include `pip3`, see these
-[instructions](https://packaging.python.org/guides/installing-using-linux-tools/#installing-pip-setuptools-wheel-with-linux-package-managers)
-on installing it. We also recommend using [conda](https://docs.conda.io/en/latest/) or [mamba](https://github.com/mamba-org/mamba) to manage your python virtual environments.
+Python 3.10.12를 [installing(설치)](https://www.python.org/downloads/)하는 것을 권장합니다.
+Windows를 사용하는 경우 x86이 아닌 x86-64 버전을 설치하세요. Python 환경에 `pip3`가 포함되어 있지 않다면
+[instructions(설치 방법)](https://packaging.python.org/guides/installing-using-linux-tools/#installing-pip-setuptools-wheel-with-linux-package-managers)을 참조하세요. 또한, Python 가상 환경 관리를 위해 [conda](https://docs.conda.io/en/latest/) 나 [mamba](https://github.com/mamba-org/mamba)를 사용하는 것을 권장합니다.
 
 #### Conda python setup
 
