@@ -11,26 +11,26 @@
 
 
 
-## Features
-- 17+ [example Unity environments](Learning-Environment-Examples.md)
-- Support for multiple environment configurations and training scenarios
-- Flexible Unity SDK that can be integrated into your game or custom Unity scene
-- Support for training single-agent, multi-agent cooperative, and multi-agent
-  competitive scenarios via several Deep Reinforcement Learning algorithms (PPO, SAC, MA-POCA, self-play).
-- Support for learning from demonstrations through two Imitation Learning algorithms (BC and GAIL).
-- Quickly and easily add your own [custom training algorithm](Python-Custom-Trainer-Plugin.md) and/or components.
-- Easily definable Curriculum Learning scenarios for complex tasks
-- Train robust agents using environment randomization
-- Flexible agent control with On Demand Decision Making
-- Train using multiple concurrent Unity environment instances
-- Utilizes the [Sentis](Sentis.md) to
-  provide native cross-platform support
-- Unity environment [control from Python](Python-LLAPI.md)
-- Wrap Unity learning environments as a [gym](Python-Gym-API.md) environment
-- Wrap Unity learning environments as a [PettingZoo](Python-PettingZoo-API.md) environment
+## Features(기능)
+- 17개 이상의 [예제 Unity 환경](Learning-Environment-Examples.md)
+- 다양한 환경 구성 및 훈련 시나리오 지원
+- 게임이나 커스텀(제작한) Unity 장면에 통합할 수 있는 유연한 Unity SDK
+- 여러 심층 강화 학습 알고리즘(PPO, SAC, MA-POCA, self-play(자가 대결))을 통해
+  단일 에이전트, 다중 에이전트 협력, 다중 에이전트 경쟁 시나리오 훈련지원.
+- 두 가지 모방 학습 알고리즘(BC 및 GAIL)을 통한 시연 학습 지원.
+- 자신의 [custom training algorithm(제작한 훈련 알고리즘)](Python-Custom-Trainer-Plugin.md) 및/또는 구성 요소를 빠르고 쉽게 추가 가능.
+- 복잡한 작업을 위한 커리큘럼 학습 시나리오를 쉽게 정의 가능
+- 환경 랜덤화를 사용하여 견고한 에이전트 훈련
+- 필요에 따라 의사 결정을 할 수 있는 유연한 에이전트 제어
+- 다중 Unity 환경 인스턴스를 사용하여 훈련 가능
+- [Sentis](Sentis.md)를 활용하여 네이티브 크로스 플랫폼 지원 제공
+- Python에서 Unity 환경 제어 [control from Python](Python-LLAPI.md)
+- Unity 학습 환경을 [gym](Python-Gym-API.md) 환경으로 래핑
+- Unity 학습 환경을 [PettingZoo](Python-PettingZoo-API.md) 환경으로 래핑
 
-See our [ML-Agents Overview](ML-Agents-Overview.md) page for detailed
-descriptions of all these features. Or go straight to our [web docs](https://unity-technologies.github.io/ml-agents/).
+모든 기능에 대한 자세한 설명은 우리의 [ML-Agents Overview](ML-Agents-Overview.md) 페이지를 참조하세요.
+또는 바로 웹 문서[web docs](https://unity-technologies.github.io/ml-agents/)로 이동하실 수 있습니다.
+
 ## Releases & Documentation
 
 **Our latest, stable release is `Release 22`. Click
