@@ -4,15 +4,15 @@ ML-Agents Toolkit은 여러 구성 요소로 이루어져 있습니다.:
 
 - Unity 패키지 ([`com.unity.ml-agents`](../com.unity.ml-agents/))는 Unity 프로젝트에 통합될 Unity C# SDK를 포함하고 있습니다. 이 패키지에는 ML-Agents를 시작하는 데 도움이 되는 샘플이 포함되어 있습니다.
 - Unity 패키지
-  ([`com.unity.ml-agents.extensions`](../com.unity.ml-agents.extensions/))는 아직 기본 'com.unity.ml-agents'
+  ([`com.unity.ml-agents.extensions`](../com.unity.ml-agents.extensions/))는 아직 기본 ₩com.unity.ml-agents₩
   패키지의 일부가 되지 않은 실험적인 C#/Unity 구성 요소를 포함하고 있습니다.
-  'com.unity.ml-agents.extensions'는 'com.unity.ml-agents'에 직접 의존성을 가집니다.
+  `com.unity.ml-agents.extensions`는 `com.unity.ml-agents`에 직접 의존성을 가집니다.
 - 2개의 Python 패키지:
   - [`mlagents`](../ml-agents/)는 Unity 장면에서 행동을 훈련할 수 있게 해주는 머신 러닝 알고리즘을 포함하고 있습니다.
-    ML-Agents의 대부분 사용자들은 'mlagents'를 직접 설치하면 충분합니다.
+    ML-Agents의 대부분 사용자들은 `mlagents`를 직접 설치하면 충분합니다.
   - [`mlagents_envs`](../ml-agents-envs/)는 Unity 장면과 상호작용할 수 있는 Python API 세트를 포함하고 있습니다.
     이는 Unity 장면과 Python 머신 러닝 알고리즘 간의 데이터 메시징을 용이하게 하는 기본 레이어입니다. 따라서 mlagents는
-    'mlagents_envs'에 의존합니다.
+    `mlagents_envs`에 의존합니다.
 - Unity [Project](https://github.com/Unity-Technologies/ml-agents/tree/main/Project/)는 툴킷의 다양한 기능을 강조하는
   여러 [example environments(예제 환경)](Learning-Environment-Examples.md)을 포함하고 있어 시작하는 데 도움을 줍니다.
 
