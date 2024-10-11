@@ -31,11 +31,9 @@
 모든 기능에 대한 자세한 설명은 우리의 [ML-Agents Overview](ML-Agents-Overview.md) 페이지를 참조하세요.
 또는 바로 웹 문서[web docs](https://unity-technologies.github.io/ml-agents/)로 이동하실 수 있습니다.
 
-## Releases & Documentation
+## Releases & Documentation(릴리스 및 문서)
 
-**Our latest, stable release is `Release 22`. Click
-[here](Getting-Started.md)
-to get started with the latest release of ML-Agents.**
+**최신 안정 릴리스는 `Release 22` 입니다. 여기를 클릭[here](Getting-Started.md)하여 ML-Agents의 최신 릴리스를 시작하세요.**
 
 **You can also check out our new [web docs](https://unity-technologies.github.io/ml-agents/)!**
 
@@ -56,7 +54,7 @@ under active development and may be unstable. A few helpful guidelines:
 
 |        **Version**         | **Release Date** | **Source** | **Documentation** | **Download** | **Python Package** | **Unity Package** |
 |:--------------------------:|:------:|:-------------:|:-------:|:------------:|:------------:|:------------:|
-| **Release 22** | **October 5, 2024** | **[source](https://github.com/Unity-Technologies/ml-agents/tree/release_22)** | **[docs](https://unity-technologies.github.io/ml-agents/)** | **[download](https://github.com/Unity-Technologies/ml-agents/archive/release_22.zip)** | **[1.1.0](https://pypi.org/project/mlagents/1.1.0/)** | **[3.0.0](https://docs.unity3d.com/Packages/com.unity.ml-agents@3.0/manual/index.html)** |
+| **Release 22** | **October 5, 2024** | **[source](https://github.com/Unity-Technologies/ml-agents/tree/release_22)** | **[docs](https://unity-technologies.github.io/ml-agents/)** | **[Installation](https://github.com/KangDongYoon8111/ml-agents-KR/blob/main/docs/Installation.md)** | **[1.1.0](https://pypi.org/project/mlagents/1.1.0/)** | **[3.0.0](https://docs.unity3d.com/Packages/com.unity.ml-agents@3.0/manual/index.html)** |
 | **develop (unstable)** | -- | [source](https://github.com/Unity-Technologies/ml-agents/tree/develop) | [docs](https://unity-technologies.github.io/ml-agents/) | [download](https://github.com/Unity-Technologies/ml-agents/archive/develop.zip) | -- | -- |
 
 
