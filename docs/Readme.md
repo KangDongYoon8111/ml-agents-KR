@@ -1,4 +1,4 @@
-{!index.md!}
+<img src="images/image-banner.png" align="middle" width="3000"/>
 
 # Unity ML-Agents Toolkit
 
