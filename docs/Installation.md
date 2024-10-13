@@ -47,7 +47,7 @@ Conda가 시스템에 설치된 후, 터미널을 열고 다음 명령어를 실
 conda create -n mlagents python=3.10.12 && conda activate mlagents
 ```
 
-### Clone the ML-Agents Toolkit Repository (Recommended) (ML-Agents Toolkit 저장소를 복제하세요. (권장))
+### Clone the ML-Agents Toolkit Repository (Recommended)(ML-Agents Toolkit 저장소를 복제하세요. (권장))
 
 Unity와 Python을 설치했으니, 이제 Unity와 Python 패키지를 설치할 수 있습니다. 
 이러한 패키지를 설치하기 위해 저장소를 복제할 필요는 없지만, 예제 환경과 훈련 구성을 다운로드하여 실험해보고 싶다면 저장소를 클론할 수 있습니다
@@ -63,43 +63,37 @@ git clone --branch release_22 https://github.com/Unity-Technologies/ml-agents.gi
 이 옵션을 생략하면 잠재적으로 불안정한 `develop` 브랜치가 선택됩니다. 그러나 릴리스 브랜치가 작동하지 않는 경우, 
 버그 및 의존성 문제에 대한 잠재적인 수정 사항이 있을 수 있으므로 `develop` 브랜치를 사용하는 것이 권장됩니다.
 
-(Optional to get bleeding edge(최신 버전을 받기 위한 선택 사항))
+(최신 버전을 받기 위한 선택 사항)
 
 ```sh
 git clone --branch https://github.com/Unity-Technologies/ml-agents.git
 ```
 
-#### Advanced: Local Installation for Development (고급 : 개발을 위한 로컬 설치)
+#### Advanced: Local Installation for Development(고급 : 개발을 위한 로컬 설치)
 
-You will need to clone the repository if you plan to modify or extend the
-ML-Agents Toolkit for your purposes. If you plan to contribute those changes
-back, make sure to clone the `develop` branch (by omitting `--branch release_22`
-from the command above). See our
-[Contributions Guidelines](../com.unity.ml-agents/CONTRIBUTING.md) for more
-information on contributing to the ML-Agents Toolkit.
+ML-Agents Toolkit을 수정하거나 확장할 계획이라면 저장소를 클론해야 합니다. 
+변경 사항을 다시 기여할 계획이라면, `develop` 브랜치를 클론해야 합니다 (위 명령어에서 `--branch release_22`를 생략하세요). 
+ML-Agents Toolkit에 기여하는 방법에 대한 자세한 정보는 기여 가이드라인[Contributions Guidelines](../com.unity.ml-agents/CONTRIBUTING.md)을 참조하세요.
 
-### Install the `com.unity.ml-agents` Unity package
+### `com.unity.ml-agents` Unity 패키지를 설치하세요.
 
-The Unity ML-Agents C# SDK is a Unity Package. You can install the
-`com.unity.ml-agents` package
-[directly from the Package Manager registry](https://docs.unity3d.com/Manual/upm-ui-install.html).
-Please make sure you enable 'Preview Packages' in the 'Advanced' dropdown in
-order to find the latest Preview release of the package.
+Unity ML-Agents C# SDK는 Unity 패키지입니다.
+`com.unity.ml-agents` 패키지를
+[패키지 관리자 레지스트리에서 직접 설치](https://docs.unity3d.com/Manual/upm-ui-install.html).
+할 수 있습니다. 최신 미리보기 릴리스를 찾기 위해 '고급' 드롭다운에서 '미리보기 패키지'를 활성화해야 합니다.
 
-**NOTE:** If you do not see the ML-Agents package listed in the Package Manager
-please follow the [advanced installation instructions](#advanced-local-installation-for-development) below.
+**NOTE:** 패키지 관리자에서 ML-Agents 패키지가 목록에 표시되지 않으면 아래의 [고급 설치 지침](#advanced-local-installation-for-development)을 따라주세요.
 
-#### Advanced: Local Installation for Development
+#### Advanced: Local Installation for Development(고급 : 개발을 위한 로컬 설치)
 
-You can [add the local](https://docs.unity3d.com/Manual/upm-ui-local.html)
-`com.unity.ml-agents` package (from the repository that you just cloned) to your
-project by:
+[로컬 추가](https://docs.unity3d.com/Manual/upm-ui-local.html)
+`com.unity.ml-agents` 패키지를 (방금 복제한 저장소에서) 프로젝트에 추가하려면 다음과 같이 하세요 :
 
-1. navigating to the menu `Window` -> `Package Manager`.
-1. In the package manager window click on the `+` button on the top left of the packages list).
-1. Select `Add package from disk...`
-1. Navigate into the `com.unity.ml-agents` folder.
-1. Select the `package.json` file.
+1. 상단 메뉴에서 `Window` -> `Package Manager` 로 이동합니다.
+1. 패키지 관리자 창에서 패키지 목록 왼쪽 상단에 있는 `+` 버튼을 클릭합니다.
+1. `Add package from disk...` 를(을) 선택합니다.
+1. `com.unity.ml-agents` 폴더로 이동합니다.
+1. `package.json` 파일을 선택합니다.
 
 <p align="center">
   <img src="../images/unity_package_manager_window.png"
@@ -112,29 +106,24 @@ project by:
      border="10" />
 </p>
 
-If you are going to follow the examples from our documentation, you can open the
-`Project` folder in Unity and start tinkering immediately.
+우리 문서의 예제를 따라 하려면 Unity에서 `Project` 폴더를 열고 바로 작업을 시작할 수 있습니다.
 
-### Install the `com.unity.ml-agents.extensions` Unity package (Optional)
+### `com.unity.ml-agents.extensions` Unity 패키지를 설치하세요 (선택 사항).
 
-To install the `com.unity.ml-agents.extensions` package, you need to first
-clone the repo and then complete a local installation similar to what was
-outlined in the previous
-[Advanced: Local Installation for Development](#advanced-local-installation-for-development-1)
-section. Complete installation steps can be found in the
-[package documentation](../com.unity.ml-agents.extensions/Documentation~/com.unity.ml-agents.extensions.md#installation).
+`com.unity.ml-agents.extensions` 패키지를 설치하려면 먼저 저장소를 클론한 후, 
+이전의 [고급 : 개발을 위한 로컬 설치](#advanced-local-installation-for-development-1) 섹션에서 
+설명한 것과 유사하게 로컬 설치를 완료해야 합니다. 
+전체 설치 단계는 [패키지 문서](../com.unity.ml-agents.extensions/Documentation~/com.unity.ml-agents.extensions.md#installation)에서 확인할 수 있습니다.
 
-### Install the `mlagents` Python package
+### `mlagents` Python 패키지를 설치하세요.
 
-Installing the `mlagents` Python package involves installing other Python
-packages that `mlagents` depends on. So you may run into installation issues if
-your machine has older versions of any of those dependencies already installed.
-Consequently, our supported path for installing `mlagents` is to leverage Python
-Virtual Environments. Virtual Environments provide a mechanism for isolating the
-dependencies for each project and are supported on Mac / Windows / Linux. We
-offer a dedicated [guide on Virtual Environments](Using-Virtual-Environment.md).
+`mlagents` Python 패키지를 설치하면 `mlagents`가 의존하는 다른 Python 패키지도 설치해야 합니다. 
+따라서, 머신에 이러한 의존성의 이전 버전이 이미 설치되어 있다면 설치 문제에 직면할 수 있습니다. 
+따라서 `mlagents`를 설치하는 데 권장되는 방법은 Python 가상 환경을 활용하는 것입니다. 
+가상 환경은 각 프로젝트의 의존성을 격리하는 메커니즘을 제공하며, Mac / Windows / Linux에서 지원됩니다. 
+우리는 [가상 환경에 대한 가이드](Using-Virtual-Environment.md)를 제공합니다.
 
-#### (Windows) Installing PyTorch
+#### (Windows) PyTorch 설치하기
 
 On Windows, you'll have to install the PyTorch package separately prior to
 installing ML-Agents in order to make sure the cuda-enabled version is used,
