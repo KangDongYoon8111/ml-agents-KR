@@ -75,7 +75,7 @@ ML-Agents Toolkit을 수정하거나 확장할 계획이라면 저장소를 클�
 변경 사항을 다시 기여할 계획이라면, `develop` 브랜치를 클론해야 합니다 (위 명령어에서 `--branch release_22`를 생략하세요). 
 ML-Agents Toolkit에 기여하는 방법에 대한 자세한 정보는 기여 가이드라인[Contributions Guidelines](../com.unity.ml-agents/CONTRIBUTING.md)을 참조하세요.
 
-### `com.unity.ml-agents` Unity 패키지를 설치하세요.
+### Install the `com.unity.ml-agents` Unity Package.(`com.unity.ml-agents` Unity 패키지를 설치하세요.)
 
 Unity ML-Agents C# SDK는 Unity 패키지입니다.
 `com.unity.ml-agents` 패키지를
@@ -100,7 +100,6 @@ Unity ML-Agents C# SDK는 Unity 패키지입니다.
        alt="Unity Package Manager Window"
        height="150"
        border="10" />
-<br>
   <img src="images/unity_package_json.png"
      alt="package.json"
      height="150"
@@ -109,14 +108,14 @@ Unity ML-Agents C# SDK는 Unity 패키지입니다.
 
 우리 문서의 예제를 따라 하려면 Unity에서 `Project` 폴더를 열고 바로 작업을 시작할 수 있습니다.
 
-### `com.unity.ml-agents.extensions` Unity 패키지를 설치하세요 (선택 사항).
+### Install the `com.unity.ml-agents.extensions` Unity package (Optional).(`com.unity.ml-agents.extensions` Unity 패키지를 설치하세요 (선택 사항).)
 
 `com.unity.ml-agents.extensions` 패키지를 설치하려면 먼저 저장소를 클론한 후, 
 이전의 [고급 : 개발을 위한 로컬 설치](#advanced-local-installation-for-development-1) 섹션에서 
 설명한 것과 유사하게 로컬 설치를 완료해야 합니다. 
 전체 설치 단계는 [패키지 문서](../com.unity.ml-agents.extensions/Documentation~/com.unity.ml-agents.extensions.md#installation)에서 확인할 수 있습니다.
 
-### `mlagents` Python 패키지를 설치하세요.
+### Install the `mlagents` Python package.(`mlagents` Python 패키지를 설치하세요.)
 
 `mlagents` Python 패키지를 설치하면 `mlagents`가 의존하는 다른 Python 패키지도 설치해야 합니다. 
 따라서, 머신에 이러한 의존성의 이전 버전이 이미 설치되어 있다면 설치 문제에 직면할 수 있습니다. 
@@ -124,34 +123,30 @@ Unity ML-Agents C# SDK는 Unity 패키지입니다.
 가상 환경은 각 프로젝트의 의존성을 격리하는 메커니즘을 제공하며, Mac / Windows / Linux에서 지원됩니다. 
 우리는 [가상 환경에 대한 가이드](Using-Virtual-Environment.md)를 제공합니다.
 
-#### (Windows) PyTorch 설치하기
+#### (Windows) Installing PyTorch((Windows) PyTorch 설치하기)
 
-On Windows, you'll have to install the PyTorch package separately prior to
-installing ML-Agents in order to make sure the cuda-enabled version is used,
-rather than the CPU-only version. Activate your virtual environment and run from
-the command line:
+Windows에서는 ML-Agents를 설치하기 전에 PyTorch 패키지를 별도로 설치해야 CUDA 지원 버전이 사용되도록 하며, 
+CPU 전용 버전이 사용되지 않도록 해야 합니다. 가상 환경을 활성화한 후 명령줄에서 다음을 실행하세요:
 
 ```sh
 pip3 install torch~=2.2.1 --index-url https://download.pytorch.org/whl/cu121
 ```
 
-Note that on Windows, you may also need Microsoft's
-[Visual C++ Redistributable](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
-if you don't have it already. See the [PyTorch installation guide](https://pytorch.org/get-started/locally/)
-for more installation options and versions.
+**NOTE:** Windows에서는 이미 설치되어 있지 않은 경우 Microsoft의 [Visual C++ Redistributable](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)도 필요할 수 있습니다. 
+더 많은 설치 옵션과 버전은 [PyTorch 설치 가이드](https://pytorch.org/get-started/locally/)를 참조하세요.
 
-#### (OS X) Installing GRPC libraries
+#### (OS X) Installing GRPC libraries((OS X) GRPC 라이브러리 설치하기)
 
-On OS X, you may need to explicitly install the GRPC runtime libraries to avoid hitting errors when training like `dlopen(/Users/alex.mccarthy/miniconda3/envs/mlagents/lib/python3.10/site-packages/grpc/_cython/cygrpc.cpython-310-darwin.so, 0x0002): symbol not found in flat namespace '_CFRelease'`.
+OS X에서는 훈련 중에 `dlopen(/Users/alex.mccarthy/miniconda3/envs/mlagents/lib/python3.10/site-packages/grpc/_cython/cygrpc.cpython-310-darwin.so, 0x0002): flat namespace '_CFRelease'에서 기호를 찾을 수 없습니다.`
+와 같은 오류를 피하기 위해 GRPC 런타임 라이브러리를 명시적으로 설치해야 할 수 있습니다.
 
 ```sh
 pip3 install grpcio
 ```
 
-#### Installing `mlagents`
+#### Installing mlagents(`mlagents` 설치하기)
 
-To install the `mlagents` Python package, activate your virtual environment and
-run from the command line:
+`mlagents` Python 패키지를 설치하려면 가상 환경을 활성화한 후 명령줄에서 다음을 실행하세요:
 
 ```sh
 cd /path/to/ml-agents
@@ -159,31 +154,27 @@ python -m pip install ./ml-agents-envs
 python -m pip install ./ml-agents
 ```
 
-Note that this will install `mlagents` from the cloned repository, _not_ from the PyPi
-repository. If you installed this correctly, you should be able to run
-`mlagents-learn --help`, after which you will see the command
-line parameters you can use with `mlagents-learn`.
+**NOTE:** 위 방법은 복제한 저장소에서 `mlagents`를 설치하며, PyPi 저장소에서 설치하지 않는다는 점에 유의하세요. 
+올바르게 설치되었다면 `mlagents-learn --help`를 실행할 수 있으며, 그 후에 `mlagents-learn`과 함께 사용할 수 있는 명령줄 매개변수를 볼 수 있습니다.
 
-**NOTE:** Since ML-Agents development has slowed, PyPi releases will be less frequent. However, you can install from PyPi by executing
-the following command:
+**NOTE:** ML-Agents 개발이 느려짐에 따라 PyPi 릴리스는 천천히(지연) 이루어질 것입니다. 
+그러나 다음 명령어를 실행하여 PyPi에서 설치할 수 있습니다:
 
 ```shell
 python -m pip install mlagents==1.1.0
 ```
 
-which will install the latest version of ML-Agents and associated dependencies available on PyPi. Note, you need to have the matching version of
-the Unity packages with the particular release of the python packages. You can find the release history [here](https://github.com/Unity-Technologies/ml-agents/releases)
+위 명령어는 PyPi에서 사용할 수 있는 최신 버전의 ML-Agents와 관련된 의존성 패키지를 설치합니다. 
+주의할 점은, 특정 Python 패키지 릴리스와 일치하는 버전의 Unity 패키지가 필요하다는 것입니다. 
+릴리스 기록은 [여기](https://github.com/Unity-Technologies/ml-agents/releases)에서 확인할 수 있습니다.
 
-By installing the `mlagents` package, the dependencies listed in the
-[setup.py file](../ml-agents/setup.py) are also installed. These include
-[PyTorch](Background-PyTorch.md).
+`mlagents` 패키지를 설치하면 [setup.py file](https://github.com/Unity-Technologies/ml-agents/blob/develop/ml-agents/setup.py) 파일에 나열된 의존성도 함께 설치됩니다.
+여기에는 [PyTorch](Background-PyTorch.md)도 포함됩니다.
 
-#### Advanced: Local Installation for Development
+#### Advanced: Local Installation for Development(고급 : 개발을 위한 로컬 설치)
 
-If you intend to make modifications to `mlagents` or `mlagents_envs`, you should
-install the packages from the cloned repository rather than from PyPi. To do
-this, you will need to install `mlagents` and `mlagents_envs` separately. From
-the repository's root directory, run:
+`mlagents` 또는 `mlagents_envs`를 수정할 계획이라면, PyPi가 아닌 클론한 저장소에서 패키지를 설치해야 합니다. 
+이를 위해 `mlagents`와 `mlagents_envs`를 별도로 설치해야 합니다. 저장소의 루트 디렉토리에서 다음을 실행하세요:
 
 ```sh
 pip3 install torch -f https://download.pytorch.org/whl/torch_stable.html
@@ -191,22 +182,16 @@ pip3 install -e ./ml-agents-envs
 pip3 install -e ./ml-agents
 ```
 
-Running pip with the `-e` flag will let you make changes to the Python files
-directly and have those reflected when you run `mlagents-learn`. It is important
-to install these packages in this order as the `mlagents` package depends on
-`mlagents_envs`, and installing it in the other order will download
-`mlagents_envs` from PyPi.
+`-e` 플래그를 사용하여 pip를 실행하면 Python 파일을 직접 수정하고, 수정 사항이 `mlagents-learn`을 실행할 때 반영됩니다. 
+이 패키지들은 이 순서로 설치하는 것이 중요합니다. 왜냐하면 `mlagents` 패키지가 `mlagents_envs`에 의존하기 때문에, 반대 순서로 설치하면 PyPi에서 `mlagents_envs`를 다운로드하게 됩니다.
 
-## Next Steps
+## Next Steps(다음 단계)
 
-The [Getting Started](Getting-Started.md) guide contains several short tutorials
-on setting up the ML-Agents Toolkit within Unity, running a pre-trained model,
-in addition to building and training environments.
+[Getting Started(시작하기)](Getting-Started.md) 가이드에는 Unity 내에서 ML-Agents Toolkit을 설정하고, 
+사전 훈련된 모델을 실행하며, 환경을 구축하고 훈련하는 여러 짧은 튜토리얼이 포함되어 있습니다.
 
-## Help
+## Help(도움말)
 
-If you run into any problems regarding ML-Agents, refer to our [FAQ](FAQ.md) and
-our [Limitations](Limitations.md) pages. If you can't find anything please
-[submit an issue](https://github.com/Unity-Technologies/ml-agents/issues) and
-make sure to cite relevant information on OS, Python version, and exact error
-message (whenever possible).
+ML-Agents와 관련하여 문제가 발생하면 자주 묻는 [FAQ(질문)](FAQ.md) 및 [제한 사항](Limitations.md) 페이지를 참조하세요. 
+만약 찾는 정보가 없다면 [이슈](https://github.com/Unity-Technologies/ml-agents/issues)를 제출하고, 운영 체제, Python 버전, 
+정확한 오류 메시지와 같은 관련 정보를 기재해 주세요(가능한 경우).
