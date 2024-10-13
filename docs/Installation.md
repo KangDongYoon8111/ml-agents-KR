@@ -100,6 +100,7 @@ Unity ML-Agents C# SDK는 Unity 패키지입니다.
        alt="Unity Package Manager Window"
        height="150"
        border="10" />
+<br>
   <img src="images/unity_package_json.png"
      alt="package.json"
      height="150"
