@@ -39,42 +39,37 @@ Python 3.10.12를 [installing(설치)](https://www.python.org/downloads/)하는 
 Windows를 사용하는 경우 x86이 아닌 x86-64 버전을 설치하세요. Python 환경에 `pip3`가 포함되어 있지 않다면
 [instructions(설치 방법)](https://packaging.python.org/guides/installing-using-linux-tools/#installing-pip-setuptools-wheel-with-linux-package-managers)을 참조하세요. 또한, Python 가상 환경 관리를 위해 [conda](https://docs.conda.io/en/latest/) 나 [mamba](https://github.com/mamba-org/mamba)를 사용하는 것을 권장합니다.
 
-#### Conda python setup
+#### Conda python setup(Conda를 사용한 Python 설치)
 
-Once conda has been installed in your system, open a terminal and execute the following commands to setup a python 3.10.12 virtual environment
-and activate it.
+Conda가 시스템에 설치된 후, 터미널을 열고 다음 명령어를 실행하여 Python 3.10.12 가상 환경을 설정하고 활성화 하세요.
 
 ```shell
 conda create -n mlagents python=3.10.12 && conda activate mlagents
 ```
 
-### Clone the ML-Agents Toolkit Repository (Recommended)
+### Clone the ML-Agents Toolkit Repository (Recommended) (ML-Agents Toolkit 저장소를 복제하세요. (권장))
 
-Now that you have installed Unity and Python, you can now install the Unity and
-Python packages. You do not need to clone the repository to install those
-packages, but you may choose to clone the repository if you'd like download our
-example environments and training configurations to experiment with them (some
-of our tutorials / guides assume you have access to our example environments).
+Unity와 Python을 설치했으니, 이제 Unity와 Python 패키지를 설치할 수 있습니다. 
+이러한 패키지를 설치하기 위해 저장소를 복제할 필요는 없지만, 예제 환경과 훈련 구성을 다운로드하여 실험해보고 싶다면 저장소를 클론할 수 있습니다
+(일부 튜토리얼/가이드는 예제 환경에 접근할 수 있다고 가정합니다).
 
-**NOTE:** There are samples shipped with the Unity Package.  You only need to clone
-the repository if you would like to explore more examples.
+**NOTE:** Unity 패키지에 샘플이 포함되어 있습니다. 더 많은 예제를 탐색하고 싶다면 저장소를 복제할 필요가 있습니다.
 
 ```sh
 git clone --branch release_22 https://github.com/Unity-Technologies/ml-agents.git
 ```
 
-The `--branch release_22` option will switch to the tag of the latest stable
-release. Omitting that will get the `develop` branch which is potentially unstable.
-However, if you find that a release branch does not work, the recommendation is to use
-the `develop` branch as it may have potential fixes for bugs and dependency issues.
+`--branch release_22` 옵션은 최신 안정 버전의 태그로 전환합니다. 
+이 옵션을 생략하면 잠재적으로 불안정한 `develop` 브랜치가 선택됩니다. 그러나 릴리스 브랜치가 작동하지 않는 경우, 
+버그 및 의존성 문제에 대한 잠재적인 수정 사항이 있을 수 있으므로 `develop` 브랜치를 사용하는 것이 권장됩니다.
 
-(Optional to get bleeding edge)
+(Optional to get bleeding edge(최신 버전을 받기 위한 선택 사항))
 
 ```sh
 git clone --branch https://github.com/Unity-Technologies/ml-agents.git
 ```
 
-#### Advanced: Local Installation for Development
+#### Advanced: Local Installation for Development (고급 : 개발을 위한 로컬 설치)
 
 You will need to clone the repository if you plan to modify or extend the
 ML-Agents Toolkit for your purposes. If you plan to contribute those changes
