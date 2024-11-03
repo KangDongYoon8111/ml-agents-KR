@@ -27,11 +27,12 @@
 1. `3D Ball` 샘플을 찾아 `Import` 버튼을 클릭합니다.
 1. **Project** 창에서 `Assets/ML-Agents/Examples/3DBall/Scenes` 폴더로 이동하여 `3DBall` 씬 파일을 엽니다.
 
+
 **DK Check Point:** 
 1. 위 방식으로 접근 시 `3D Ball`항목이 0 KB 로 오류가 발생될 수 있음.
    git을 통해 내려받은 저장소 파일 내부 `ml-agents/com.unity.ml-agents/3DBall/3DBall.unitypackage` 로 대체가능.
 1. 샘플 임포트시 **ModelOverrider.cs** 스크립트 파일로 인하여 에러가 발생될 수 있음.
-   `Assets/ML-Agents/Examples/SharedAssets/Scripts` 폴더로 이동하여 `ModelOverrider.cs` 파일을 엽니다.
+   `Assets/ML-Agents/Examples/SharedAssets/Scripts` 폴더로 이동하여 `ModelOverrider.cs` 파일을 엽니다.
 1. 에러가 발생되는 지점 `LoadSentisModel(byte[] rawModel)` 메서드로 이동하여, 아래 내용으로 교체하세요.
 ```sh
     ModelAsset LoadSentisModel(byte[] rawModel)
