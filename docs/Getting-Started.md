@@ -33,7 +33,8 @@
    git을 통해 내려받은 저장소 파일 내부 `ml-agents/com.unity.ml-agents/3DBall/3DBall.unitypackage` 로 대체가능.
 1. 샘플 임포트시 **ModelOverrider.cs** 스크립트 파일로 인하여 에러가 발생될 수 있음.
    `Assets/ML-Agents/Examples/SharedAssets/Scripts` 폴더로 이동하여 `ModelOverrider.cs` 파일을 엽니다.
-1. 에러가 발생되는 지점 `LoadSentisModel(byte[] rawModel)` 메서드로 이동하여, 아래 내용으로 교체하세요.
+1. `using System.Reflection;` 추가 후, 에러가 발생되는 지점 `LoadSentisModel(byte[] rawModel)` 메서드로 이동하여,
+   아래 내용으로 교체하세요.
 ```sh
     ModelAsset LoadSentisModel(byte[] rawModel)
         {
