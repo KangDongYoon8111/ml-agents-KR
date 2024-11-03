@@ -80,40 +80,35 @@ Unity의 맥락에서 환경은 하나 이상의 에이전트 객체와 에이�
 
 ![Unity Editor](images/mlagents-3DBallHierarchy.png)
 
-**Note:** In Unity, the base object of everything in a scene is the
-_GameObject_. The GameObject is essentially a container for everything else,
-including behaviors, graphics, physics, etc. To see the components that make up
-a GameObject, select the GameObject in the Scene window, and open the Inspector
-window. The Inspector shows every component on a GameObject.
+**Note:** Unity에서 씬(Scene) 내 모든 것의 기본 객체는 GameObject 입니다.
+GameObject는 행동(behaviors), 그래픽(graphics), 물리(physics) 등을 포함한 다른 모든 요소를 담는 일종의 컨테이너 역할을 합니다.
+GameObject를 구성하는 컴포넌트를 확인하려면, 씬 창(Scene window)에서 해당 GameObject를 선택하고 인스펙터 창(Inspector Window)을 열면 됩니다. 인스펙터에서는 해당 GameObject에 추가된 모든 컴포넌트를 확인할 수 있습니다.
 
-The first thing you may notice after opening the 3D Balance Ball scene is that
-it contains not one, but several agent cubes. Each agent cube in the scene is an
-independent agent, but they all share the same Behavior. 3D Balance Ball does
-this to speed up training since all twelve agents contribute to training in
-parallel.
+3D Balance Ball 씬을 열면, 단 하나가 아닌 여러 개의 에이전트 큐브(agent cubes)가 포함되어 있다는 것을 처음으로 확인할 수 있습니다.
+이 씬에 있는 각 에이전트 큐브는 독립적인 에이전트이지만, 모두 동일한 행동(Behavior)를 공유합니다.
+3D Balance Ball에서는 12개의 에이전트가 동시에 학습에 기여하여 학습 속도를 높이기 위해 이와 같이 설계되었습니다.
 
-### Agent
+### Agent(에이전트)
 
-The Agent is the actor that observes and takes actions in the environment. In
-the 3D Balance Ball environment, the Agent components are placed on the twelve
-"Agent" GameObjects. The base Agent object has a few properties that affect its
-behavior:
+에이전트(Agent)는 환경에서 관찰하고 행동을 수행하는 주체입니다.
+3D Balance Ball 환경에서는 에이전트 컴포넌트가 열두 개의 "에이전트(Agent)" GameObject에 배치되어 있습니다.
+기본 에이전트(Agent) 객체는 행동에 영향을 미치는 몇가지 속성을 가지고 있습니다 :
 
-- **Behavior Parameters** — Every Agent must have a Behavior. The Behavior
-  determines how an Agent makes decisions.
-- **Max Step** — Defines how many simulation steps can occur before the Agent's
-  episode ends. In 3D Balance Ball, an Agent restarts after 5000 steps.
+- **Behavior Parameters(행동 매개변수)** — 모든 Agent는 반드시 행동을 가져야 합니다. 행동은 에이전트가 어떻게 결정을 내리는지 결정합니다.
+- **Max Step(최대 단계)** — 에이전트의 에피소드가 끝나기 전에 진행될 수 있는 시뮬레이션 단계의 수를 정의합니다. 3D Balance Ball에서는
+  에이전트가 5000 단계 후에 에피소드를 다시 시작합니다.
 
-#### Behavior Parameters : Vector Observation Space
+**DK Check Point:** 에피소드란, Agent가 환경에서 특정 목표를 이루거나 실패할 때까지의 한 단위 과정입니다. 
+즉, 에피소드는 Agent의 학습이나 평가를 위해 환경 내에서 한 번의 시도를 의미하며, 에이전트가 환경과 상호작용하면서 얻은 보상과 결과를 바탕으로 다음 에피소드에서 더 나은 행동을 학습하는 과정을 반복합니다.
 
-Before making a decision, an agent collects its observation about its state in
-the world. The vector observation is a vector of floating point numbers which
-contain relevant information for the agent to make decisions.
+#### Behavior Parameters : Vector Observation Space(행동 매개변수 : 벡터 관측 공간)
 
-The Behavior Parameters of the 3D Balance Ball example uses a `Space Size` of 8.
-This means that the feature vector containing the Agent's observations contains
-eight elements: the `x` and `z` components of the agent cube's rotation and the
-`x`, `y`, and `z` components of the ball's relative position and velocity.
+Agent는 결정을 내리기 전에 세계 속에서 자신의 상태에 대한 관측(Observation)을 수집합니다.
+벡터 관측(Vector Observation)은 에이전트가 결정을 내리기 위해 필요한 정보를 담고 있는 실수(floating point) 숫자들의 벡터 입니다.
+
+3D Balance Ball 예제의 행동 매개변수(Behavior Parameters)에서 `관측 공간 크기(Space Size)`는 8로 설정되어 있습니다.
+이는 Agent의 관측 정보를 담고 있는 특징 벡터가 여덟 개의 요소로 이루어져 있음을 의미합니다.
+이 요소들은 Agent 큐브의 `x` 및 `z` 축 회전 값, 공의 상대적인 위치와 속도의 `x`, `y`, `z` 성분으로 구성되어있습니다.
 
 #### Behavior Parameters : Actions
 
