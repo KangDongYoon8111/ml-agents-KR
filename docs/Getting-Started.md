@@ -33,6 +33,39 @@
 1. 샘플 임포트시 **ModelOverrider.cs** 스크립트 파일로 인하여 에러가 발생될 수 있음.
    `Assets/ML-Agents/Examples/SharedAssets/Scripts` 폴더로 이동하여 `ModelOverrider.cs` 파일을 엽니다.
 1. 에러가 발생되는 지점 `LoadSentisModel(byte[] rawModel)` 메서드로 이동하여, 아래 내용으로 교체하세요.
+```sh
+    ModelAsset LoadSentisModel(byte[] rawModel)
+        {
+            
+            var asset = ScriptableObject.CreateInstance<ModelAsset>();
+           
+            var modelAssetDataType = typeof(ModelAsset).Assembly.GetType("NamespaceOfModelAssetData.ModelAssetData"); 
+            var modelAssetDataInstance = ScriptableObject.CreateInstance(modelAssetDataType);
+     
+            FieldInfo modelAssetDataField = typeof(ModelAsset).GetField("modelAssetData", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            if (modelAssetDataField != null)
+            {
+                modelAssetDataField.SetValue(asset, modelAssetDataInstance);
+
+                FieldInfo valueField = modelAssetDataType.GetField("value", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                if (valueField != null)
+                {
+                    valueField.SetValue(modelAssetDataInstance, rawModel);
+                }
+                else
+                {
+                    Debug.LogError("Failed to retrieve the value field from ModelAssetData.");
+                }
+            }
+            else
+            {
+                Debug.LogError("Failed to retrieve modelAssetData field from ModelAsset using reflection.");
+            }
+
+            return asset;
+        }
+```
 
 ## Understanding a Unity Environment(Unity 환경 이해하기)
 
