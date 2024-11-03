@@ -1,47 +1,47 @@
 # Getting Started Guide
 
-This guide walks through the end-to-end process of opening one of our
-[example environments](Learning-Environment-Examples.md) in Unity, training an
-Agent in it, and embedding the trained model into the Unity environment. After
-reading this tutorial, you should be able to train any of the example
-environments. If you are not familiar with the
-[Unity Engine](https://unity3d.com/unity), view our
-[Background: Unity](Background-Unity.md) page for helpful pointers.
-Additionally, if you're not familiar with machine learning, view our
-[Background: Machine Learning](Background-Machine-Learning.md) page for a brief
-overview and helpful pointers.
+이 가이드는 Unity에서 제공하는 [예제 환경](Learning-Environment-Examples.md) 중 하나를 열고,
+훈련된 모델을 Unity 환경에 통합하는 과정을 처음부터 끝까지 안내합니다.
+이 튜토리얼을 읽고 나면, 예제 환경 중 어떤 환경이든 훈련할 수 있게 될 것입니다.
+[Unity Engine](https://unity3d.com/unity)에 익숙하지 않다면, 
+도움이 되는 팁을 제공하는 [Background: Unity](Background-Unity.md) 페이지를 확인해 보세요.
+또한, 머신러닝에 익숙하지 않다면, 간략한 개요와 유용한 팁이 포함된 [Background: Machine Learning](Background-Machine-Learning.md) 페이지를 참조해 보세요.
 
 ![3D Balance Ball](images/balance.png)
 
-For this guide, we'll use the **3D Balance Ball** environment which contains a
-number of agent cubes and balls (which are all copies of each other). Each agent
-cube tries to keep its ball from falling by rotating either horizontally or
-vertically. In this environment, an agent cube is an **Agent** that receives a
-reward for every step that it balances the ball. An agent is also penalized with
-a negative reward for dropping the ball. The goal of the training process is to
-have the agents learn to balance the ball on their head.
+이 가이드에서는 여러 개의 에이전트 큐브와 공(서로의 복사본들로 구성(프리팹))으로 이루어진 **3D Balance Ball** 환경을 사용합니다.
+각 에이전트 큐브는 수평 또는 수직으로 회전하여 공이 떨어지지 않도록 유지하려고 합니다.
+이 환경에서 에이전트 큐브는 공을 균형 있게 유지할 때마다 보상을 받는 **에이전트(Agent)** 역할을 합니다.
+반면, 공을 떨어뜨리면 페널티로서 부정적인 보상을 받습니다. 
+훈련 과정의 목표는 에이전트들이 공을 머리 위에 균형 있게 유지하는 방법을 학습하도록 하는 것 입니다.
 
-Let's get started!
+시작해봅시다!
 
-## Installation
+## Installation(설치)
 
-If you haven't already, follow the [installation instructions](Installation.md).
-Afterwards, open the Unity Project that contains all the example environments:
+아직 설치하지 않았다면, [설치 지침](Installation.md)을 따라주세요.
+그 후, 모든 예제 환경이 포함된 Unity 프로젝트를 엽니다 :
 
-1. Open the Package Manager Window by navigating to `Window -> Package Manager`
-   in the menu.
-1. Navigate to the ML-Agents Package and click on it.
-1. Find the `3D Ball` sample and click `Import`.
-1. In the **Project** window, go to the
-   `Assets/ML-Agents/Examples/3DBall/Scenes` folder and open the `3DBall` scene
-   file.
+1. 메뉴에서 `Window -> Package Manager`로 이동하여 패키지 관리자 창을 엽니다.
+1. ML-Agents 패키지로 이동하여 클릭합니다.
+1. `3D Ball` 샘플을 찾아 `Import` 버튼을 클릭합니다.
+1. **Project** 창에서 `Assets/ML-Agents/Examples/3DBall/Scenes` 폴더로 이동하여 `3DBall` 씬 파일을 엽니다.
 
-## Understanding a Unity Environment
+**DK Check Point:** 
+1. 위 방식으로 접근 시 `3D Ball`항목이 0 KB 로 오류가 발생될 수 있음.
+   git을 통해 내려받은 저장소 파일 내부 `ml-agents/com.unity.ml-agents/3DBall/3DBall.unitypackage` 로 대체가능.
+1. 샘플 임포트시 **ModelOverrider.cs** 스크립트 파일로 인하여 에러가 발생될 수 있음.
+   `Assets/ML-Agents/Examples/SharedAssets/Scripts` 폴더로 이동하여 `ModelOverrider.cs` 파일을 엽니다.
+1. 에러가 발생되는 지점 `LoadSentisModel(byte[] rawModel)` 메서드로 이동하여, 아래 내용으로 교체하세요.
 
-An agent is an autonomous actor that observes and interacts with an
-_environment_. In the context of Unity, an environment is a scene containing one
-or more Agent objects, and, of course, the other entities that an agent
-interacts with.
+## Understanding a Unity Environment(Unity 환경 이해하기)
+
+에이전트(_agent_)는 환경(_environment_)을 관찰(_observes_)하고 상호작용하는 자율적인 행위자(_actor_)입니다.
+Unity의 맥락에서 환경은 하나 이상의 에이전트 객체와 에이전트가 상호작용하는 다른 엔티티(_entities_)들이 포함된 씬을 의미합니다.
+
+**DK Check Point:** 엔티티(_entities_)란, Unity에서 에이전트와 상호작용할 수 있는 모든 객체나 요소를 의미합니다.
+이는 에이전트의 행동이나 학습에 영향을 미칠 수 있는 물리적 오브젝트, 환경의 특성, 또는 다른 NPC 등을 포함합니다.
+즉, 에이전트가 목표를 달성하기 위해 고려해야 하거나 피드백을 받을 수 있는 환경 내 모든 요소를 포괄하는 개념입니다.
 
 ![Unity Editor](images/mlagents-3DBallHierarchy.png)
 
