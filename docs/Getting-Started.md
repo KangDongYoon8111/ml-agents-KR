@@ -110,44 +110,36 @@ Agent는 결정을 내리기 전에 세계 속에서 자신의 상태에 대한 
 이는 Agent의 관측 정보를 담고 있는 특징 벡터가 여덟 개의 요소로 이루어져 있음을 의미합니다.
 이 요소들은 Agent 큐브의 `x` 및 `z` 축 회전 값, 공의 상대적인 위치와 속도의 `x`, `y`, `z` 성분으로 구성되어있습니다.
 
-#### Behavior Parameters : Actions
+#### Behavior Parameters : Actions(행동 매개변수 : 행동)
 
-An Agent is given instructions in the form of actions.
-ML-Agents Toolkit classifies actions into two types: continuous and discrete.
-The 3D Balance Ball example is programmed to use continuous actions, which
-are a vector of floating-point numbers that can vary continuously. More specifically,
-it uses a `Space Size` of 2 to control the amount of `x` and `z` rotations to apply to
-itself to keep the ball balanced on its head.
+에이전트는 행동이라는 형태로 명령을 받습니다. ML-Agents 툴킷은 행동을 두 가지 유형으로 분류하는데,
+`연속형(continuous)`과 `이산형(discrete)`이 있습니다.
+3D Balance Ball 예제는 연속형 행동을 사용하도록 프로그래밍되어 있으며, 이는 연속적으로 변할 수 있는 실수(float) 벡터 입니다.
+구체적으로 `Space Size`가 2인 연속형 행동 벡터를 사용하여 `x`와 `z` 회전 값을 조절하고, 이를 통해 공이 머리 위에 균형을 유지하도록 합니다.
 
-## Running a pre-trained model
+## Running a pre-trained model(사전 훈련된 모델 실행)
 
-We include pre-trained models for our agents (`.onnx` files) and we use the
-[Sentis](Sentis.md) to run these models inside
-Unity. In this section, we will use the pre-trained model for the 3D Ball
-example.
+우리는 에이전트의 사전 훈련된 모델(`.onnx` 파일)을 포함하고 있으며, 
+Unity 내에서 이러한 모델을 실행하기 위해 [Sentis](Sentis.md)를 사용합니다.
+이 섹션에서는 3D Ball 예제를 위한 사전 훈련된 모델을 사용할 것입니다.
 
-1. In the **Project** window, go to the
-   `Assets/ML-Agents/Examples/3DBall/Prefabs` folder. Expand `3DBall` and click
-   on the `Agent` prefab. You should see the `Agent` prefab in the **Inspector**
-   window.
+1. **프로젝트** 창에서 `Assets/ML-Agents/Examples/3DBall/TFModels` 폴더로 이동하세요.
+   `3DBall`을 확장하고 `Agent` 프리팹을 클릭합니다.
+   **Inspector**창에서 `Agent` 프리팹을 확인할 수 있습니다.
 
-   **Note**: The platforms in the `3DBall` scene were created using the `3DBall`
-   prefab. Instead of updating all 12 platforms individually, you can update the
-   `3DBall` prefab instead.
+   **Note**: `3DBall` 씬의 플랫폼들은 `3DBall` 프리팹을 사용하여 생성되었습니다. 
+   12개의 플랫폼을 개별적으로 업데이트 하는 대신, `3DBall` 프리팹을 업데이트 하면 됩니다.
 
    ![Platform Prefab](images/platform_prefab.png)
 
-1. In the **Project** window, drag the **3DBall** Model located in
-   `Assets/ML-Agents/Examples/3DBall/TFModels` into the `Model` property under
-   `Behavior Parameters (Script)` component in the Agent GameObject
-   **Inspector** window.
+1. **프로젝트** 창에서 `Assets/ML-Agents/Examples/3DBall/TFModels`에 있는 **3D Ball** 모델을
+   Agent 게임 오브젝트 인스펙터 창에서 `Behavior Parameters (Script)` 컴포넌트의 `Model` 속성에 드래그하여 넣으세요.
 
    ![3dball learning brain](images/3dball_learning_brain.png)
 
-1. You should notice that each `Agent` under each `3DBall` in the **Hierarchy**
-   windows now contains **3DBall** as `Model` on the `Behavior Parameters`.
-   **Note** : You can modify multiple game objects in a scene by selecting them
-   all at once using the search bar in the Scene Hierarchy.
+1. 이제 **계층(Hierarchy)** 창의 각 `3DBall` 아래에 있는 각 `Agent`가 `Behavior Parameters`에
+   **3DBall** `Model`을 포함하고 있는 것을 확인할 수 있습니다.
+   **Note** : 씬 계층에서 검색 창을 사용해 여러 게임 오브젝트를 한 번에 선택하여 수정할 수 있습니다.
 1. Set the **Inference Device** to use for this model as `CPU`.
 1. Click the **Play** button in the Unity Editor and you will see the platforms
    balance the balls using the pre-trained model.
