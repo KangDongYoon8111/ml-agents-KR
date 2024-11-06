@@ -139,10 +139,13 @@ Unity 내에서 이러한 모델을 실행하기 위해 [Sentis](Sentis.md)를 �
 
 1. 이제 **계층(Hierarchy)** 창의 각 `3DBall` 아래에 있는 각 `Agent`가 `Behavior Parameters`에
    **3DBall** `Model`을 포함하고 있는 것을 확인할 수 있습니다.
+
    **Note** : 씬 계층에서 검색 창을 사용해 여러 게임 오브젝트를 한 번에 선택하여 수정할 수 있습니다.
 1. **Inference Device**를 `CPU`로 설정하세요.
+
    **Note** : ML-Agents 버전 `2.0` 이상부터는 속성값이 변경됨. `Burst`나 `Default`로 설정하세요.
 1. Unity 에디터에서 **Play** 버튼을 클릭하면, `pre-trained(프리트레인된)` 모델을 사용하여 플랫폼들이 공을 균형 잡는 것을 볼 수 있습니다.
+
    **Note** : `Pre-trained Model(프리트레인된 모델)`이란, 이미 훈련이 완료된 모델을 의미합니다.
 
 ## Training a new model with Reinforcement Learning
