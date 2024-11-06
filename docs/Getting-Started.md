@@ -148,14 +148,12 @@ Unity 내에서 이러한 모델을 실행하기 위해 [Sentis](Sentis.md)를 �
 
    **Note** : `Pre-trained Model(프리트레인된 모델)`이란, 이미 훈련이 완료된 모델을 의미합니다.
 
-## Training a new model with Reinforcement Learning
+## Training a new model with Reinforcement Learning(강화 학습을 사용하여 새로운 모델 훈련하기)
 
-While we provide pre-trained models for the agents in this environment, any
-environment you make yourself will require training agents from scratch to
-generate a new model file. In this section we will demonstrate how to use the
-reinforcement learning algorithms that are part of the ML-Agents Python package
-to accomplish this. We have provided a convenient command `mlagents-learn` which
-accepts arguments used to configure both training and inference phases.
+우리는 이 환경에 대한 에이전트의 pre-trained 모델을 제공하지만, 사용자가 직접 만든 환경에서는 
+에이전트를 처음부터 훈련시켜야 새로운 모델 파일을 생성할 수 있습니다.
+이 섹션에서는 ML-Agents Python 패키지의 강화 학습 알고리즘을 사용하여 이를 수행하는 방법을 보여줍니다.
+우리는 훈련과 추론 단계를 구성하는 데 사용되는 인수를 받을 수 있는 편리한 명령어 `mlagents-learn`을 제공했습니다.
 
 ### Training the environment
 
