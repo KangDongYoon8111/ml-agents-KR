@@ -78,7 +78,7 @@ Unity 프로젝트에서 ML-Agents Toolkit을 사용하는 기본 단계는 다�
 이 Cube는 에이전트가 목표로 삼을 대상입니다.
 
 <p align="center">
-  <img src="roller-ball-target.png"
+  <img src="images/roller-ball-target.png"
        alt="Target Cube Inspector window"
        height="800"
        border="10" />
