@@ -152,20 +152,17 @@ Floor, Target 그리고 RollerAgent를 하나의 빈 GameObject 아래에 그룹
 
 각 각의 메서드에 대해서는 아래의 전용 섹션에서 더 자세히 설명할 것입니다.
 
-### Initialization and Resetting the Agent
+### Initialization and Resetting the Agent(에이전트 초기화 및 리셋)
 
-The process of training in the ML-Agents Toolkit involves running episodes where
-the Agent (Sphere) attempts to solve the task. Each episode lasts until the
-Agents solves the task (i.e. reaches the cube), fails (rolls off the platform)
-or times out (takes too long to solve or fail at the task). At the start of each
-episode, `OnEpisodeBegin()` is called to set-up the environment for a
-new episode. Typically the scene is initialized in a random manner to enable the
-agent to learn to solve the task under a variety of conditions.
+ML-Agents Toolkit에서 훈련 과정은 에이전트(Sphere)가 작업을 해결하려고 시도하는 에피소드를 실행하는 방식으로 진행됩니다.
+각 에피소드는 **1) 에이전트가 작업을 해결할 때(즉, 큐브에 도달)**, **2) 실패할 때(플랫폼에서 떨어짐)**, 
+또는 **3)시간 초과가 발생할 때(작업을 해결하거나 실패하는 데 너무 오래 걸림)** 까지 지속됩니다.
+각 에피소드가 시작될 때 `OnEpisodeBegin()`이 호출되어 새로운 에피소드를 위한 환경을 설정합니다.
+일반적으로, 에이전트가 다양한 조건에서 작업을 해결할 수 있도록 장면(환경)은 무작위로 초기화됩니다.
 
-In this example, each time the Agent (Sphere) reaches its target (Cube), the
-episode ends and the target (Cube) is moved to a new random location; and if
-the Agent rolls off the platform, it will be put back onto the floor.
-These are all handled in `OnEpisodeBegin()`.
+이 예제에서는 에이전트(Sphere)가 목표(Cube)에 도달할 때마다 에피소드가 끝나고, 목표(Cube)는 새로운 무작위 위치로 이동합니다.
+만약 에이전트가 플랫폼에서 떨어지면, 에이전트는 바닥으로 다시 놓이게 됩니다.
+이러한 모든 동작은 `OnEpisodeBegin()`에서 처리됩니다.
 
 To move the target (Cube), we need a reference to its Transform (which stores a
 GameObject's position, orientation and scale in the 3D world). To get this
