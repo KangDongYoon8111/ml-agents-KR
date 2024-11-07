@@ -117,42 +117,40 @@ Floor, Target 그리고 RollerAgent를 하나의 빈 GameObject 아래에 그룹
        height="250"
        border="10" />
 </p>
-![Hierarchy window](images/roller-ball-hierarchy.png){: style="width:250px"}
 
-## Implement an Agent
+## Implement an Agent(에이전트 구현)
 
-To create the Agent Script:
+에이전트 스크립트를 만들기 위해:
 
-1. Select the RollerAgent GameObject to view it in the Inspector window.
-1. Click **Add Component**.
-1. Click **New Script** in the list of components (at the bottom).
-1. Name the script "RollerAgent".
-1. Click **Create and Add**.
+1. **RollerAgent** 게임 오브젝트를 선택하여 인스펙터 창에서 확인합니다.
+2. **Add Component**를 클릭합니다.
+3. 컴포넌트 목록 하단에서 **New Script**를 클릭합니다.
+4. 스크립트의 이름을 **RollerAgent**로 지정합니다.
+5. **Create and Add**를 클릭합니다.
 
-Then, edit the new `RollerAgent` script:
+그런 다음 새로운 `RollerAgent` 스크립트를 수정합니다:
 
-1. In the Unity Project window, double-click the `RollerAgent` script to open it
-   in your code editor.
-1. Import ML-Agent package by adding
+1. Unity `Project` 창에서 `RollerAgent` 스크립트를 더블 클릭하여 코드 편집기에서 엽니다.
+2. ML-Agents 패키지를 가져오기 위해 파일 상단에 다음 코드를 추가합니다.
 
    ```csharp
    using Unity.MLAgents;
    using Unity.MLAgents.Sensors;
    using Unity.MLAgents.Actuators;
    ```
-   then change the base class from `MonoBehaviour` to `Agent`.
-1. Delete `Update()` since we are not using it, but keep `Start()`.
 
-So far, these are the basic steps that you would use to add ML-Agents to any
-Unity project. Next, we will add the logic that will let our Agent learn to roll
-to the cube using reinforcement learning. More specifically, we will need to
-extend three methods from the `Agent` base class:
+   그런 다음 `MonoBehaviour`를 `Agent`로 기본 클래스를 변경합니다.
+1. `Update()` 메서드를 삭제하고 `Start()` 메서드는 그대로 둡니다. `Start()`는 초기 설정에만 사용되므로 삭제할 필요는 없습니다.
+
+지금(여기)까지는 ML-Agent를 Unity 프로젝트에 추가하는 기본적인 단계들을 다뤘습니다.
+다음으로는 에이전트가 강화 학습을 사용하여 큐브로 굴러가는 방법을 배우게 할 논리를 추가할 것입니다.
+구체적으로, 우리는 `Agent` 기본 클래스에서 세 가지 메서드를 확장해야 합니다:
 
 - `OnEpisodeBegin()`
 - `CollectObservations(VectorSensor sensor)`
 - `OnActionReceived(ActionBuffers actionBuffers)`
 
-We overview each of these in more detail in the dedicated subsections below.
+각 각의 메서드에 대해서는 아래의 전용 섹션에서 더 자세히 설명할 것입니다.
 
 ### Initialization and Resetting the Agent
 
