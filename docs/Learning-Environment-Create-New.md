@@ -37,7 +37,7 @@ Unity 프로젝트에서 ML-Agents Toolkit을 사용하는 기본 단계는 다�
 <p align="center">
   <img src="images/roller-ball-projects.png"
        alt="Unity Project Window"
-       height="450"
+       height="400"
        border="10" />
 </p>
 ![Unity Project Window](images/roller-ball-projects.png){: style="width:250px"}
