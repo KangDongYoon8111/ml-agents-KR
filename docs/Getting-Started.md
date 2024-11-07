@@ -240,46 +240,33 @@ tensorboard --logdir results
 훈련 과정이 완료되고 훈련이 모델을 저장하면(`Saved Model`메시지가 표시됨) 
 해당 모델을 Unity 프로젝트에 추가하고 호환되는 에이전트(모델을 생성한 에이전트)와 함께 사용할 수 있습니다.
 **Note:** `Saved Model` 메시지가 표시된 후 Unity창을 바로 닫지 마세요.
-훈련 과정이 창을 자동으로 닫을 때까지 기다리거나, 
-Once the training process completes, and the training process saves the model
-(denoted by the `Saved Model` message) you can add it to the Unity project and
-use it with compatible Agents (the Agents that generated the model). **Note:**
-Do not just close the Unity Window once the `Saved Model` message appears.
-Either wait for the training process to close the window or press `Ctrl+C` at
-the command-line prompt. If you close the window manually, the `.onnx` file
-containing the trained model is not exported into the ml-agents folder.
+훈련 과정이 창을 자동으로 닫을 때까지 기다리거나, 명령줄 프롬프트에서 `Ctrl+C`를 눌러 훈련을 중지하세요.
+창을 수동으로 닫으면 훈련된 모델을 포함하는 `.onnx`파일이 ml-agents 폴더에 내보내지지 않습니다.
 
-If you've quit the training early using `Ctrl+C` and want to resume training,
-run the same command again, appending the `--resume` flag:
+훈련을 `Ctrl+C`로 중간에 종료했으며 훈련을 다시 시작하고 싶다면, 동일한 명령어에 `--resume` 플래그를 추가하여 실행하세요:
 
 ```sh
 mlagents-learn config/ppo/3DBall.yaml --run-id=first3DBallRun --resume
 ```
 
-Your trained model will be at `results/<run-identifier>/<behavior_name>.onnx` where
-`<behavior_name>` is the name of the `Behavior Name` of the agents corresponding
-to the model. This file corresponds to your model's latest checkpoint. You can
-now embed this trained model into your Agents by following the steps below,
-which is similar to the steps described [above](#running-a-pre-trained-model).
+훈련된 모델은 `results/<run-identifier>/<behavior_name>.onnx` 위치에 저장되며,
+여기서 `<behavior_name>`은 해당 모델과 연관된 에이전트의 `Behavior Name`입니다.
+이 파일은 모델의 최신 체크포인트를 나타냅니다.
+이제 아래 단계에 따라 이 훈련된 모델을 에이전트에 내장할 수 있습니다.
+이 단계는 위에 설명된 [사전 훈련된 모델 실행(above)](#running-a-pre-trained-model) 단계와 유사합니다.
 
-1. Move your model file into
-   `Project/Assets/ML-Agents/Examples/3DBall/TFModels/`.
-1. Open the Unity Editor, and select the **3DBall** scene as described above.
-1. Select the **3DBall** prefab Agent object.
-1. Drag the `<behavior_name>.onnx` file from the Project window of the Editor to
-   the **Model** placeholder in the **Ball3DAgent** inspector window.
-1. Press the **Play** button at the top of the Editor.
+1. 모델 파일을 위해 `Project/Assets/ML-Agents/Examples/3DBall/TFModels/`로 이동합니다.
+2. Unity Editor를 열고, 위에서 설명한 대로 **3DBall** 씬을 선택합니다.
+3. **3DBall** 프리팹 에이전트 객체를 선택합니다.
+4. 에디터의 프로젝트 창에서 `<behavior_name>.onnx` 파일을 **Ball3DAgent** 인스펙터 창의 **Model** 자리로 드래그합니다.
+5. 에디터 상단의 **Play** 버튼을 누릅니다.
 
-## Next Steps
+## Next Steps(다음 단계)
 
-- For more information on the ML-Agents Toolkit, in addition to helpful
-  background, check out the [ML-Agents Toolkit Overview](ML-Agents-Overview.md)
-  page.
-- For a "Hello World" introduction to creating your own Learning Environment,
-  check out the
-  [Making a New Learning Environment](Learning-Environment-Create-New.md) page.
-- For an overview on the more complex example environments that are provided in
-  this toolkit, check out the
-  [Example Environments](Learning-Environment-Examples.md) page.
-- For more information on the various training options available, check out the
-  [Training ML-Agents](Training-ML-Agents.md) page.
+- ML-Agents Toolkit에 대한 더 많은 정보와 배경 지식을 확인하려면
+  [ML-Agents Toolkit Overview](ML-Agents-Overview.md) 페이지를 참고하세요.
+- 새 학습 환경을 만드는 방법에 대한 "Hello World" 소개를 보려면
+  [Making a New Learning Environment](Learning-Environment-Create-New.md) 페이지를 참고하세요.
+- 이 툴킷에서 제공하는 더 복잡한 예제 환경에 대한 개요를 보려면
+  [Example Environments](Learning-Environment-Examples.md) 페이지를 참고하세요.
+- 사용할 수 있는 다양한 훈련 옵션에 대한 자세한 정보는 [Training ML-Agents](Training-ML-Agents.md) 페이지를 참고하세요.
