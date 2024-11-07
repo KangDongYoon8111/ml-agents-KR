@@ -164,24 +164,16 @@ ML-Agents Toolkit에서 훈련 과정은 에이전트(Sphere)가 작업을 해�
 만약 에이전트가 플랫폼에서 떨어지면, 에이전트는 바닥으로 다시 놓이게 됩니다.
 이러한 모든 동작은 `OnEpisodeBegin()`에서 처리됩니다.
 
-To move the target (Cube), we need a reference to its Transform (which stores a
-GameObject's position, orientation and scale in the 3D world). To get this
-reference, add a public field of type `Transform` to the RollerAgent class.
-Public fields of a component in Unity get displayed in the Inspector window,
-allowing you to choose which GameObject to use as the target in the Unity
-Editor.
+목표(Cube)를 이동시키려면, 해당 목표의 Transform(3D 세계에서 GameObject의 위치, 방향, 크기를 저장하는 클래스)에 대한 참고가 필요합니다.
+이를 위해, **RollerAgent** 클래스에 `Transform` 유형의 public 필드를 추가하세요.
+Unity에서 컴포넌트의 public 필드는 인스펙터 창에 표시되며, 이를 통해 Unity 에디터에서 어떤 GameObject를 목표로 사용할지 선택할 수 있습니다.
 
-To reset the Agent's velocity (and later to apply force to move the agent) we
-need a reference to the Rigidbody component. A
-[Rigidbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html) is Unity's
-primary element for physics simulation. (See
-[Physics](https://docs.unity3d.com/Manual/PhysicsSection.html) for full
-documentation of Unity physics.) Since the Rigidbody component is on the same
-GameObject as our Agent script, the best way to get this reference is using
-`GameObject.GetComponent<T>()`, which we can call in our script's `Start()`
-method.
+에이전트의 속도를 초기화하고(그리고 이 후 에이전트를 이동시키기 위해 힘을 가하기 위해) Rigidbody 컴포넌트에 대한 참조가 필요합니다.
+[Rigidbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html)는 주요 물리 시뮬레이션 요소입니다. (Unity 물리에 대한 전체 문서는 [Physics](https://docs.unity3d.com/Manual/PhysicsSection.html)에서 확인할 수 있습니다.)
+Rigidbody 컴포넌트가 에이전트 스크립트와 동일한 GameObject에 있기 때문에, 이 참조를 얻는 가장 좋은 방법은
+`GameObject.GetComponent<T>()`를 사용하는 것입니다. 이를 스크립트의 `Start()` 메서드에서 호출할 수 있습니다.
 
-So far, our RollerAgent script looks like:
+현재까지, 우리의 **RollerAgent** 스크립트는 다음과 같습니다:
 
 ```csharp
 using System.Collections.Generic;
@@ -215,10 +207,36 @@ public class RollerAgent : Agent
 }
 ```
 
-Next, let's implement the `Agent.CollectObservations(VectorSensor sensor)`
-method.
+다음으로, `Agent.CollectObservations(VectorSensor sensor)` 메서드를 구현해 봅시다.
 
-### Observing the Environment
+### Observing the Environment(환경 관찰하기)
+
+에이전트(Agent)는 우리가 수집한 정보를 브레인(Brain)으로 보내고, 브레인(Brain)은 이를 사용하여 결정을 내립니다.
+에이전트를 훈련할 때(또는 훈련된 모델을 사용할 때) 이 데이터는 피처 벡터(feature vector)로서 신경망(neural network)에 입력됩니다.
+에이전트가 과제를 성공적으로 학습하려면 올바른 정보를 제공해야 합니다. 수집할 정보를 결정하는 좋은 기준은 문제에 대한 분석적 해법을
+계산하기 위해 필요한 정보가 무엇일지를 고려하는 것입니다.
+**note :**
+- **브레인(Brain)** 은 ML-Agent 툴킷에서 에이전트의 행동을 결정하는 핵심 역할을 하는 요소입니다.
+  브레인은 에이전트가 주위 환경에서 얻은 관찰 데이터를 바탕으로 신경망(neural network)을 사용하여 다음 행동을 선택합니다.
+- **피처 벡터(feature vector)** 은 에이전트가 환경을 관찰하여 수집한 데이터를 하나의 벡터 형태로 표현한 것입니다.
+  이 벡터는 신경망(neural network)의 입력으로 사용되어 에이전트가 다음에 수행할 행동을 결정할 때 중요한 역할을 합니다.
+- **신경망(neural network)** 은 에이전트가 학습을 통해 특정 과제를 수행하도록 돕는 중요한 도구입니다.
+  신경망은 인간의 뇌 구조에서 영감을 받아 설계된 수학적 모델로, 여러 개의 뉴런(노드)들이 서로 연결되어 계층 구조를 이루고 있습니다.
+  ML-Agents와 같은 강화 학습 시스템에서 신경망의 주요 역할은 에이전트가 환경에서 수집한 데이터를 입력으로 받아 이를 학습하여,
+  주어진 환경에서 최적의 행동을 선택할 수 있도록 하는 것입니다. 구체적으로, 신경망은 피처 벡터를 입력으로 받아 학습한 결과를 바탕으로
+  에이전트가 다음에 취할 행동을 출력으로 제공합니다.
+  신경망은 크게 입력층, 숨겨진 층(중간층), 출력층으로 구성됩니다:
+  1. 입력층 : 환경에서 수집한 피처 벡터를 입력으로 받습니다.
+  2. 숨겨진 층(중간층) : 입력층과 출력층 사이에 위치하여 다양한 계산을 수행합니다. 이 층에서 뉴런들이 서로 연결되며 학습 과정에서 패턴을 찾고,
+     중요한 특징을 추출하는 역할을 합니다.
+  3. 출력층 : 에이전트가 취할 행동을 결정하는 값들이 나옵니다. 이 값은 에이전트가 강화 학습 과정에서 학습한 내용을 바탕으로,
+     현재 상태에서 가장 최적이라고 판단되는 행동입니다. 
+  <p align="center">
+  <img src="images/FlappyBirdNeuralNetwork.png"
+       alt="FlappyBirdNeuralNetwork"
+       height="800"
+       border="10" />
+</p>
 
 The Agent sends the information we collect to the Brain, which uses it to make a
 decision. When you train the Agent (or use a trained model), the data is fed
