@@ -114,7 +114,7 @@ Floor, Target 그리고 RollerAgent를 하나의 빈 GameObject 아래에 그룹
 <p align="center">
   <img src="images/roller-ball-hierarchy.png"
        alt="Hierarchy window"
-       height="400"
+       height="250"
        border="10" />
 </p>
 ![Hierarchy window](images/roller-ball-hierarchy.png){: style="width:250px"}
