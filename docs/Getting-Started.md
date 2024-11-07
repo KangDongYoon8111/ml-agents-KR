@@ -155,23 +155,19 @@ Unity 내에서 이러한 모델을 실행하기 위해 [Sentis](Sentis.md)를 �
 이 섹션에서는 ML-Agents Python 패키지의 강화 학습 알고리즘을 사용하여 이를 수행하는 방법을 보여줍니다.
 우리는 훈련과 추론 단계를 구성하는 데 사용되는 인수를 받을 수 있는 편리한 명령어 `mlagents-learn`을 제공했습니다.
 
-### Training the environment
+### Training the environment(환경 훈련하기)
 
-1. Open a command or terminal window.
-1. Navigate to the folder where you cloned the `ml-agents` repository. **Note**:
-   If you followed the default [installation](Installation.md), then you should
-   be able to run `mlagents-learn` from any directory.
-1. Run `mlagents-learn config/ppo/3DBall.yaml --run-id=first3DBallRun`.
-   - `config/ppo/3DBall.yaml` is the path to a default training
-     configuration file that we provide. The `config/ppo` folder includes training configuration
-     files for all our example environments, including 3DBall.
-   - `run-id` is a unique name for this training session.
-1. When the message _"Start training by pressing the Play button in the Unity
-   Editor"_ is displayed on the screen, you can press the **Play** button in
-   Unity to start training in the Editor.
+1. 명령 프롬프트 또는 터미널 창을 여세요.
+2. `ml-agents` 리포지토리(repository)를 클론한 폴더로 이동하세요.
+   **Note**:[installation(기본설치)](Installation.md)를 따랐다면, 어느 디렉터리에서든 `mlagents-learn`을 실행할 수 있습니다.
+1. `mlagents-learn config/ppo/3DBall.yaml --run-id=first3DBallRun`을 실행하세요.
+   - `config/ppo/3DBall.yaml`은 우리가 제공하는 기본 훈련 구성 파일의 경로입니다.
+     `config/ppo` 폴더에는 3DBall을 포함한 모든 예제 환경에 대한 훈련 구성 파일이 포함되어 있습니다.
+   - `run-id`는 이 훈련 세션을 위한 고유한 이름입니다.
+1. _"Start training by pressing the Play button in the Unity Editor"_ 메시지가 화면에 표시되면,
+   Unity 에디터에서 **Play** 버튼을 눌러 훈련을 시작할 수 있습니다.
 
-If `mlagents-learn` runs correctly and starts training, you should see something
-like this:
+`mlagents-learn`가 제대로 실행되어 훈련을 시작하면, 다음과 같은 화면을 볼 수 있습니다:
 
 ```console
 INFO:mlagents_envs:
@@ -217,34 +213,34 @@ INFO:mlagents.trainers: first3DBallRun: 3DBallLearning: Step: 9000. Mean Reward:
 INFO:mlagents.trainers: first3DBallRun: 3DBallLearning: Step: 10000. Mean Reward: 27.284. Std of Reward: 28.667. Training.
 ```
 
-Note how the `Mean Reward` value printed to the screen increases as training
-progresses. This is a positive sign that training is succeeding.
+화면에 출력되는 `Mean Reward` 값이 훈련이 진행될수록 증가하는 것을 주목하세요.
+이는 훈련이 성공적으로 진행되고 있다는 긍정적인 신호입니다.
 
-**Note**: You can train using an executable rather than the Editor. To do so,
-follow the instructions in
-[Using an Executable](Learning-Environment-Executable.md).
+**Note**: 편집기 대신 실행 파일을 사용하여 훈련을 진행할 수 있습니다. 
+이를 위해서는 [Using an Executable](Learning-Environment-Executable.md)의 지침을 따르세요.
 
-### Observing Training Progress
+### Observing Training Progress(훈련 진행 관찰)
 
-Once you start training using `mlagents-learn` in the way described in the
-previous section, the `ml-agents` directory will contain a `results`
-directory. In order to observe the training process in more detail, you can use
-TensorBoard. From the command line run:
+이전 섹션에서 설명한 방법으로 `mlagents-learn`을 사용하여 훈련을 시작하면, 
+`ml-agents` 디렉토리에는 `results` 디렉토리가 생성됩니다. 훈련 과정을 더 자세히 관찰 하려면 TensorBoard를 사용할 수 있습니다.
+명령줄에서 다음을 실행하세요:
 
 ```sh
 tensorboard --logdir results
 ```
 
-Then navigate to `localhost:6006` in your browser to view the TensorBoard
-summary statistics as shown below. For the purposes of this section, the most
-important statistic is `Environment/Cumulative Reward` which should increase
-throughout training, eventually converging close to `100` which is the maximum
-reward the agent can accumulate.
+그런 다음 브라우저에서 `localhost:6006`으로 이동하여 아래와 같이 TensorBoard 요약 통계를 확인할 수 있습니다.
+이 섹션의 목적상 가장 중요한 통계는 `Environment/Cumulative Reward`로, 훈련이 진행됨에 따라 증가해야 하며,
+결국 에이전트가 누적할 수 있는 최대 보상인 `100`에 근접하게 됩니다.
 
 ![Example TensorBoard Run](images/mlagents-TensorBoard.png)
 
-## Embedding the model into the Unity Environment
+## Embedding the model into the Unity Environment(Unity 환경에 모델 삽입하기)
 
+훈련 과정이 완료되고 훈련이 모델을 저장하면(`Saved Model`메시지가 표시됨) 
+해당 모델을 Unity 프로젝트에 추가하고 호환되는 에이전트(모델을 생성한 에이전트)와 함께 사용할 수 있습니다.
+**Note:** `Saved Model` 메시지가 표시된 후 Unity창을 바로 닫지 마세요.
+훈련 과정이 창을 자동으로 닫을 때까지 기다리거나, 
 Once the training process completes, and the training process saves the model
 (denoted by the `Saved Model` message) you can add it to the Unity project and
 use it with compatible Agents (the Agents that generated the model). **Note:**
