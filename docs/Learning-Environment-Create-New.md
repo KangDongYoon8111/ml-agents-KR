@@ -51,6 +51,7 @@ Unity 프로젝트에서 ML-Agents Toolkit을 사용하는 기본 단계는 다�
    - **Position** = `(0, 0, 0)`
    - **Rotation** = `(0, 0, 0)`
    - **Scale** = `(1, 1, 1)`
+
 이렇게 하면 Agent가 움직일 수 있는 바닥 Plane이 준비됩니다.
 
 ![Floor Inspector window](images/roller-ball-floor.png){: style="width:400px"}
