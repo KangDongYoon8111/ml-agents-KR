@@ -95,20 +95,28 @@ Unity 프로젝트에서 ML-Agents Toolkit을 사용하는 기본 단계는 다�
 1. `Inspector` 창에서 `Add Component` 버튼을 클릭합니다.
 1. RollerAgent 객체에 `Rigidbody` 컴포넌트를 추가합니다.
 
-### Group into Training Area
+### Group into Training Area(Training Area로 그룹화하기)
 
-Group the floor, target and agent under a single, empty, GameObject. This will simplify
-some of our subsequent steps.
+Floor, Target 그리고 RollerAgent를 하나의 빈 GameObject 아래에 그룹화하세요.
+이렇게 하면 이 후 단계들이 더 간단해질 것입니다.
 
-To do so:
+다음을 수행하세요:
 
-1. Right-click on your Project Hierarchy and create a new empty GameObject. Name
-   it TrainingArea.
-1. Reset the TrainingArea’s Transform so that it is at `(0,0,0)` with Rotation
-   `(0,0,0)` and Scale `(1,1,1)`.
-1. Drag the Floor, Target, and RollerAgent GameObjects in the Hierarchy into the
-   TrainingArea GameObject.
+1. 프로젝트 `Hierarchy` 창에서 마우스 오른쪽 클릭하여 `빈 GameObject`를 생성합니다.
+   이 GameObject의 이름을 **TrainingArea**로 지정합니다.
+1. RollerAgent 객체를 선택한 후, `Inspector` 창에서 `Transform` 컴포넌트을 **초기화**하여 아래와 같이 설정합니다.
+   - **Position** = `(0, 0, 0)`
+   - **Rotation** = `(0, 0, 0)`
+   - **Scale** = `(1, 1, 1)`
+1. `Hierarchy` 창에서 Floor, Target 그리고 RollerAgent GameObject들을
+   TrainingArea GameObject로 **드래그**하여 자식(하위 요소)으로 추가합니다.
 
+<p align="center">
+  <img src="images/roller-ball-hierarchy.png"
+       alt="Hierarchy window"
+       height="400"
+       border="10" />
+</p>
 ![Hierarchy window](images/roller-ball-hierarchy.png){: style="width:250px"}
 
 ## Implement an Agent
