@@ -215,6 +215,7 @@ public class RollerAgent : Agent
 에이전트를 훈련할 때(또는 훈련된 모델을 사용할 때) 이 데이터는 피처 벡터(feature vector)로서 신경망(neural network)에 입력됩니다.
 에이전트가 과제를 성공적으로 학습하려면 올바른 정보를 제공해야 합니다. 수집할 정보를 결정하는 좋은 기준은 문제에 대한 분석적 해법을
 계산하기 위해 필요한 정보가 무엇일지를 고려하는 것입니다.
+
 **note :**
 - **브레인(Brain)** 은 ML-Agent 툴킷에서 에이전트의 행동을 결정하는 핵심 역할을 하는 요소입니다.
   브레인은 에이전트가 주위 환경에서 얻은 관찰 데이터를 바탕으로 신경망(neural network)을 사용하여 다음 행동을 선택합니다.
@@ -234,7 +235,7 @@ public class RollerAgent : Agent
   <p align="center">
   <img src="images/FlappyBirdNeuralNetwork.png"
        alt="FlappyBirdNeuralNetwork"
-       height="800"
+       height="400"
        border="10" />
 </p>
 
