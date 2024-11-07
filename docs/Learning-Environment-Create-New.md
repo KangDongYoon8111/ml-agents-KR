@@ -65,27 +65,35 @@ Unity 프로젝트에서 ML-Agents Toolkit을 사용하는 기본 단계는 다�
        height="800"
        border="10" />
 </p>
-![Floor Inspector window](images/roller-ball-floor.png){: style="width:400px"}
 
-### Add the Target Cube
+### Add the Target Cube(목표 Cude 추가하기)
 
-1. Right click in Hierarchy window, select 3D Object > Cube.
-1. Name the GameObject "Target".
-1. Select the Target Cube to view its properties in the Inspector window.
-1. Set Transform to Position = `(3, 0.5, 3)`, Rotation = `(0, 0, 0)`, Scale =
-   `(1, 1, 1)`.
+1. `Hierarchy` 창에서 마우스 오른쪽 클릭하고 `3D Object > Cube`을 선택합니다.
+2. 새로 생성된 Cube 객체의 이름을 **Target**으로 변경합니다.
+3. Target 객체를 선택한 후, `Inspector` 창에서 `Transform` 컴포넌트의 값을 아래와 같이 설정합니다:
+   - **Position** = `(3, 0.5, 3)`
+   - **Rotation** = `(0, 0, 0)`
+   - **Scale** = `(1, 1, 1)`
 
-![Target Cube Inspector window](images/roller-ball-target.png){: style="width:400px"}
+이 Cube는 에이전트가 목표로 삼을 대상입니다.
 
-### Add the Agent Sphere
+<p align="center">
+  <img src="roller-ball-target.png"
+       alt="Target Cube Inspector window"
+       height="800"
+       border="10" />
+</p>
 
-1. Right click in Hierarchy window, select 3D Object > Sphere.
-1. Name the GameObject "RollerAgent".
-1. Select the RollerAgent Sphere to view its properties in the Inspector window.
-1. Set Transform to Position = `(0, 0.5, 0)`, Rotation = `(0, 0, 0)`, Scale =
-   `(1, 1, 1)`.
-1. Click **Add Component**.
-1. Add the `Rigidbody` component to the Sphere.
+### Add the Agent Sphere(에이전트 구체 추가하기)
+
+1. `Hierarchy` 창에서 마우스 오른쪽 클릭하고 `3D Object > Sphere`를 선택합니다.
+2. 새로 생성된 Sphere 객체의 이름을 **RollerAgent**으로 변경합니다.
+3. RollerAgent 객체를 선택한 후, `Inspector` 창에서 `Transform` 컴포넌트의 값을 아래와 같이 설정합니다:
+   - **Position** = `(0, 0.5, 0)`
+   - **Rotation** = `(0, 0, 0)`
+   - **Scale** = `(1, 1, 1)`
+1. `Inspector` 창에서 `Add Component` 버튼을 클릭합니다.
+1. RollerAgent 객체에 `Rigidbody` 컴포넌트를 추가합니다.
 
 ### Group into Training Area
 
