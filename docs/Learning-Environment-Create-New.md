@@ -34,6 +34,12 @@ Unity 프로젝트에서 ML-Agents Toolkit을 사용하는 기본 단계는 다�
 
 이제 Unity **Project** 창에서 다음 자산을 확인할 수 있어야 합니다:
 
+<p align="center">
+  <img src="images/roller-ball-projects.png"
+       alt="Unity Project Window"
+       height="250"
+       border="10" />
+</p>
 ![Unity Project Window](images/roller-ball-projects.png){: style="width:250px"}
 
 ## Create the Environment(환경 만들기)
