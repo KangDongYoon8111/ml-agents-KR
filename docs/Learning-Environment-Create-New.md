@@ -1,64 +1,57 @@
-# Making a New Learning Environment
+# Making a New Learning Environment(새 학습 환경 만들기)
 
-This tutorial walks through the process of creating a Unity Environment from
-scratch. We recommend first reading the [Getting Started](Getting-Started.md)
-guide to understand the concepts presented here first in an already-built
-environment.
+이 튜토리얼은 새로운 Unity 환경을 처음부터 만드는 과정을 안내합니다.
+이미 구축된 환경에서 먼저 개념을 이해하기 위해 [Getting Started](Getting-Started.md) 가이드를 읽어보시기를 권장합니다.
 
 ![A simple ML-Agents environment](images/mlagents-NewTutSplash.png)
 
-In this example, we will create an agent capable of controlling a ball on a
-platform. We will then train the agent to roll the ball toward the cube while
-avoiding falling off the platform.
+이 예제에서는 플랫폼 위의 공을 제어할 수 있는 에이전트를 만들 것입니다.
+이 후 에이전트를 훈련시켜 공을 큐브 쪽으로 굴리되, 플랫폼에서 떨어지지 않도록 하는 방법을 학습하게 할 것 입니다.
 
-## Overview
+## Overview(개요)
 
-Using the ML-Agents Toolkit in a Unity project involves the following basic
-steps:
+Unity 프로젝트에서 ML-Agents Toolkit을 사용하는 기본 단계는 다음과 같습니다:
 
-1. Create an environment for your agents to live in. An environment can range
-   from a simple physical simulation containing a few objects to an entire game
-   or ecosystem.
-1. Implement your Agent subclasses. An Agent subclass defines the code an Agent
-   uses to observe its environment, to carry out assigned actions, and to
-   calculate the rewards used for reinforcement training. You can also implement
-   optional methods to reset the Agent when it has finished or failed its task.
-1. Add your Agent subclasses to appropriate GameObjects, typically, the object
-   in the scene that represents the Agent in the simulation.
+1. 에이전트가 있을 환경을 만듭니다.
+   환경은 몇 개의 객체가 포함된 간단한 물리 시뮬레이션에서부터 전체 게임이나 생태계까지 다양할 수 있습니다.
+1. 에이전트 하위 클래스를 구현합니다. 에이전트 하위 클래스는 에이전트가 환경을 관찰하고, 주어진 행동을 수행하며,
+   강화 학습을 위한 보상을 계산하는 코드를 정의합니다.
+   또한, 에이전트가 작업을 완료했거나 실패했을 때 이를 리셋하는 선택적 메서드를 구현할 수 있습니다.
+1. 에이전트 하위 클래스를 적절한 게임 오브젝트에 추가합니다.
+   보통, 시뮬레이션에서 에이전트를 나타내는 객체에 추가됩니다.
 
-**Note:** If you are unfamiliar with Unity, refer to the
-[Unity manual](https://docs.unity3d.com/Manual/index.html)
-if an Editor task isn't explained sufficiently in this tutorial.
+**Note:** Unity에 익숙하지 않은 경우, 이 튜토리얼에서 에디터 작업이 충분히 설명되지 않은 경우에는 [Unity manual](https://docs.unity3d.com/Manual/index.html)을 참고하세요.
 
-If you haven't already, follow the [installation instructions](Installation.md).
+이미 설치하지 않으셨다면, [installation instructions(설치 지침)](Installation.md)을 따르세요.
 
-## Set Up the Unity Project
+## Set Up the Unity Project(Unity 프로젝트 설정)
 
-The first task to accomplish is simply creating a new Unity project and
-importing the ML-Agents assets into it:
+첫 번째 작업은 새로운 Unity 프로젝트를 만들고 ML-Agents 자산을 가져오는 것입니다:
 
-1. Launch Unity Hub and create a new 3D project named "RollerBall".
-1. [Add the ML-Agents Unity package](Installation.md#install-the-comunityml-agents-unity-package)
-   to your project.
+1. **Unity Hub**를 실행하고 "RollerBall"이라는 이름으로 새로운 3D 프로젝트를 만듭니다.
+2. [Add the ML-Agents Unity package(ML-Agents Unity 패키지 추가](Installation.md#install-the-comunityml-agents-unity-package)
+   하여 프로젝트에 ML-Agents를 설치합니다.
 
-Your Unity **Project** window should contain the following assets:
+이제 Unity **Project** 창에서 다음 자산을 확인할 수 있어야 합니다:
 
 ![Unity Project Window](images/roller-ball-projects.png){: style="width:250px"}
 
-## Create the Environment
+## Create the Environment(환경 만들기)
 
-Next, we will create a very simple scene to act as our learning environment. The
-"physical" components of the environment include a Plane to act as the floor for
-the Agent to move around on, a Cube to act as the goal or target for the agent
-to seek, and a Sphere to represent the Agent itself.
+다음으로, 학습 환경 역할을 할 매우 간단한 씬을 만들겠습니다.
+환경의 "물리적" 구성 요소에는 에이전트가 움직일 수 있는 바닥 역할을 하는 `Plane`, 에이전트가 목표로 삼을 `Cude`,
+그리고 에이전트를 나타내는 `Sphere`가 포함됩니다.
+이제 이러한 요소들을 Unity 씬에 추가하는 방법을 설명하겠습니다.
 
-### Create the Floor Plane
+### Create the Floor Plane(바닥 Plane 생성하기)
 
-1. Right click in Hierarchy window, select 3D Object > Plane.
-1. Name the GameObject "Floor".
-1. Select the Floor Plane to view its properties in the Inspector window.
-1. Set Transform to Position = `(0, 0, 0)`, Rotation = `(0, 0, 0)`, Scale =
-   `(1, 1, 1)`.
+1. `Hierarchy` 창에서 마우스 오른쪽 클릭하고 `3D Object > Plane`을 선택합니다.
+2. 생성된 Plane 객체의 이름을 **Floor**로 변경합니다.
+3. Floor 객체를 선택한 후, `Inspector` 창에서 `Transform` 컴포넌트의 값을 아래와 같이 설정합니다:
+   - **Position** = `(0, 0, 0)`
+   - **Rotation** = `(0, 0, 0)`
+   - **Scale** = `(1, 1, 1)`
+이렇게 하면 Agent가 움직일 수 있는 바닥 Plane이 준비됩니다.
 
 ![Floor Inspector window](images/roller-ball-floor.png){: style="width:400px"}
 
