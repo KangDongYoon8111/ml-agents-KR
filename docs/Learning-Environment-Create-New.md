@@ -40,7 +40,6 @@ Unity 프로젝트에서 ML-Agents Toolkit을 사용하는 기본 단계는 다�
        height="400"
        border="10" />
 </p>
-![Unity Project Window](images/roller-ball-projects.png){: style="width:250px"}
 
 ## Create the Environment(환경 만들기)
 
@@ -60,6 +59,12 @@ Unity 프로젝트에서 ML-Agents Toolkit을 사용하는 기본 단계는 다�
 
 이렇게 하면 Agent가 움직일 수 있는 바닥 Plane이 준비됩니다.
 
+<p align="center">
+  <img src="images/roller-ball-floor.png"
+       alt="Floor Inspector window"
+       height="800"
+       border="10" />
+</p>
 ![Floor Inspector window](images/roller-ball-floor.png){: style="width:400px"}
 
 ### Add the Target Cube
