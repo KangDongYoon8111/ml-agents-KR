@@ -237,6 +237,7 @@ public class RollerAgent : Agent
        alt="FlappyBirdNeuralNetwork"
        height="400"
        border="10" />
+       extract:https://www.alexmasse.com/blog/2018/5/21/unity-3d-flappy-bird-ai-with-machine-learning 
 </p>
 
 The Agent sends the information we collect to the Brain, which uses it to make a
