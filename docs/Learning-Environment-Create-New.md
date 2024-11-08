@@ -465,8 +465,7 @@ behaviors:
 - **누적 보상(cumulative_reward)** : 에이전트가 학습하는 동안 얻은 총 보상을 나타냅니다. 목표를 달성할 때마다 보상이 누적되고, 이 값이 증가합니다.
 - **가치 추정(value estimate)** : 각 상태에서 에이전트가 예상하는 보상입니다. 에이전트는 이 값을 통해 주어진 상태에서 행동을 선택할 때의 기대되는 보상을 추정하고, 학습을 통해 이 값을 점차 정확하게 만듭니다.
 
-## Optional: Multiple Training Areas within the Same Scene
-## (선택사항: 동일한 씬 내에 여러 훈련 구역 만들기)
+## Optional: Multiple Training Areas within the Same Scene(선택사항: 동일한 씬 내에 여러 훈련 구역 만들기)
 
 [example environments(예제 환경들)](Learning-Environment-Examples.md) 중 많은 경우에서 여러 복사본의 훈련 구역이 씬 안에 생성됩니다. 이렇게 하면 여러 경험을 동시에 수집할 수 있어 훈련 속도가 빨라집니다. 동일한 `Behavior Name`을 가진 여러 Agent를 인스턴스화함으로써 이를 간단하게 구현할 수 있습니다. 이미 `TrainingArea` GameObject를 생성하고 `RollerAgent.cs`에서 로컬 위치를 사용하여 여러 구역을 사용하는 방식으로 쉽게 전환할 수 있도록 설정해 두었습니다. RollerBall 환경을 병렬화하려면 다음 단계를 따르세요:
 
@@ -481,8 +480,7 @@ behaviors:
 4. 복제할 영역의 개수와 영역 사이의 간격을 지정합니다.
 5. Play 버튼을 누르면 영역이 자동으로 복제됩니다!
 
-## Optional: Training Using Concurrent Unity Instances
-## (선택사항: 동시 Unity 인스턴스를 사용한 훈련)
+## Optional: Training Using Concurrent Unity Instances(선택사항: 동시 Unity 인스턴스를 사용한 훈련)
 또 다른 수준의 병렬화를 위해 [concurrent Unity instances(동시 Unity 인스턴스)](ML-Agents-Overview.md#additional-features)를 사용하여 훈련할 수 있습니다. 예를 들어,
 
 ```
