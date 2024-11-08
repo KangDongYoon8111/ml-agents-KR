@@ -216,7 +216,7 @@ public class RollerAgent : Agent
 에이전트가 과제를 성공적으로 학습하려면 올바른 정보를 제공해야 합니다. 수집할 정보를 결정하는 좋은 기준은 문제에 대한 분석적 해법을
 계산하기 위해 필요한 정보가 무엇일지를 고려하는 것입니다.
 
-**note :**
+**DK Check Pint :**
 - **브레인(Brain)** 은 ML-Agent 툴킷에서 에이전트의 행동을 결정하는 핵심 역할을 하는 요소입니다.
   브레인은 에이전트가 주위 환경에서 얻은 관찰 데이터를 바탕으로 신경망(neural network)을 사용하여 다음 행동을 선택합니다.
 - **피처 벡터(feature vector)** 은 에이전트가 환경을 관찰하여 수집한 데이터를 하나의 벡터 형태로 표현한 것입니다.
@@ -368,7 +368,7 @@ Inspector에서 `RollerAgent`는 이제 다음과 같아야 합니다:
 
 이제 훈련 전에 환경을 테스트할 준비가 되었습니다.
 
-**note:**
+**DK Check Point :**
 - **Decision Requester**는 Unity ML-Agents Toolkit에서 사용되는 컴포넌트로 에이전트가 주기적으로 의사 결정을 내리도록 요청하는 역할을 합니다. 이 컴포넌트는 에이전트가 훈련 중에 언제 의사 결정을 내릴지 지정하는데 사용됩니다. 기본적으로, 훈련된 에이전트는 환경에서 관찰한 정보를 바탕으로 행동을 선택하게 되는데, `Decision Requester`는 그 시점이 언제인지 정하는 역할을 합니다.
 - **Decision Period**는 속성으로서 에이전트가 얼마나 자주 결정을 내릴지를 설정합니다. 예를 들어 값을 10으로 설정하면, 에이전트는 10프레임마다 한 번씩 행동을 결정합니다. 이는 훈련이 더 빠르게 진행될 수 있도록 설정할 수 있는 중요한 값입니다.
 - **Behavior Parameters**는 Unity ML-Agents Toolkit에서 사용되는 중요한 컴포넌트로 에이전트의 행동 방식과 훈련 환경을 설정하는 역할을 합니다. 이 컴포넌트를 통해 에이전트가 학습하는 방식을 제어하고, 신경망 모델의 입력과 출력을 정의 할 수 있습니다.
@@ -376,13 +376,14 @@ Inspector에서 `RollerAgent`는 이제 다음과 같아야 합니다:
 - **Vector Observation**는 에이전트가 환경을 관찰할 때 사용할 벡터 형태의 입력 데이터를 설정하는 부분입니다. `Space Size`는 에이전트가 관찰하는 상태 벡터의 크기를 정의합니다. 예를 들어 `Space Size = 8`로 설정하면, 에이전트는 8개의 값(위치, 속도 등)을 관찰하고, 이 값들을 신경망에 입력으로 제공합니다.
 - **Actions**는 에이전트가 수행할 수 있는 행동을 정의합니다. `Continuous Actions`는(은) 연속적인 행동을 수행하는 경우, 예를 들어 `2`로 설정하면, 에이전트가 두 개의 연속적인 값을 기반으로 행동을 결정하도록 훈련합니다. 각 행동은 `x`축과 `z`축 방향으로의 힘을 적용하는 방식으로 정의할 수 있습니다. 
 
-## Testing the Environment
+## Testing the Environment(환경 테스트하기)
 
-It is always a good idea to first test your environment by controlling the Agent
-using the keyboard. To do so, you will need to extend the `Heuristic()` method
-in the `RollerAgent` class. For our example, the heuristic will generate an
-action corresponding to the values of the "Horizontal" and "Vertical" input axis
-(which correspond to the keyboard arrow keys):
+환경을 테스트할 때는 에이전트를 키보드로 제어해 보는 것이 좋습니다. 
+이를 위해 `RollerAgent` 클래스에서 `Heuristic()` 메서드를 확장해야 합니다.
+예를 들어, "Horizontal" 및 "Verticla" 입력 축(키보드의 방향 키에 해당하는 값)에 따른 동작을 생성하는 `Heuristic(히유리스틱)`을 구현합니다.
+
+**DK Check Point :**
+- **Heuristic()**은 Unity ML-Agents Toolkit에서 제공되는 메서드로 에이전트의 행동을 수동으로 지정할 수 있습니다. 이는 훈련 과정 없이 사람이 에이전트를 제어하거나, 디버깅 및 테스트를 위한 기본 동작을 제공하는데 유용합니다. 
 
 ```csharp
 public override void Heuristic(in ActionBuffers actionsOut)
@@ -393,23 +394,17 @@ public override void Heuristic(in ActionBuffers actionsOut)
 }
 ```
 
-In order for the Agent to use the Heuristic, You will need to set the
-`Behavior Type` to `Heuristic Only` in the `Behavior Parameters` of the
-RollerAgent.
+에이전트가 **Heuristic**을 사용하도록 하려면, **RollerAgent**의 `Behavior Parameters`에서 `Behavior Type`을 `Heuristic Only`로 설정해야 합니다.
 
-Press **Play** to run the scene and use the arrows keys to move the Agent around
-the platform. Make sure that there are no errors displayed in the Unity Editor
-Console window and that the Agent resets when it reaches its target or falls
-from the platform.
+**Play** 버튼을 눌러 씬을 실행하고 화살표 키를 사용하여 에이전트를 플랫폼 주위로 이동시켜 보세요.
+Unity 에디터 콘솔 창에 오류가 표시되지 않는지 확인하고, 에이전트가 목표에 도달하거나 플랫폼에서 떨어질 떄 제대로 초기화되는지 확인하세요.
 
-## Training the Environment
+## Training the Environment(환경 학습시키기)
 
-The process is the same as described in the
-[Getting Started Guide](Getting-Started.md).
+과정은 기존 [Getting Started Guide](Getting-Started.md)에서 설명된 것과 동일합니다.
 
-The hyperparameters for training are specified in a configuration file that you
-pass to the `mlagents-learn` program. Create a new `rollerball_config.yaml` file
-under `config/` and include the following hyperparameter values:
+훈련을 위한 하이퍼파라미터는 `mlagents-learn` 프로그램에 전달하는 구성 파일에서 지정됩니다.
+`config/` 폴더에 새로운 `rollerball_config.yaml` 파일을 만들고 다음 하이퍼파라미터 값을 포함하세요.
 
 ```yml
 behaviors:
@@ -439,27 +434,22 @@ behaviors:
     summary_freq: 10000
 ```
 
-Hyperparameters are explained in [the training configuration file documentation](Training-Configuration-File.md)
+하이퍼파라미터에 대한 설명은 [the training configuration file documentation(훈련 구성 파일 문서)](Training-Configuration-File.md)에서 확인할 수 있습니다.
 
-Since this example creates a very simple training environment with only a few
-inputs and outputs, using small batch and buffer sizes speeds up the training
-considerably. However, if you add more complexity to the environment or change
-the reward or observation functions, you might also find that training performs
-better with different hyperparameter values. In addition to setting these
-hyperparameter values, the Agent **DecisionFrequency** parameter has a large
-effect on training time and success. A larger value reduces the number of
-decisions the training algorithm has to consider and, in this simple
-environment, speeds up training.
+본 예제는 몇 가지 입력과 출력만 있는 매우 간단한 훈련 환경을 만들기 때문에 작은 `배치(batch)` 및 `버퍼 크기(buffer sizes)`를 사용하면 훈련 속도가 크게 향상됩니다. 그러나 환경에 복잡성을 추가하거나 `보상(Reward)` 또는 `관찰(Observation)` 함수에 변경을 가할 경우, 다른 하이퍼파라미터 값으로 훈련 성능이 더 좋을 수 있습니다. 이러한 하이퍼파라미터 값을 설정하는 것 외에요, **DecisionFrequency** 파라미터는 훈련 시간과 성공에 큰 영향을 미칩니다. 이 값을 크게 설정하면 훈련 알고리즘이 고려해야 할 결정의 수가 줄어들어, 이 간단한 환경에서는 훈련 속도가 빠라집니다.
 
-To train your agent, run the following command before pressing **Play** in the
-Editor:
+에이전트를 훈련시키려면, **Play**를 누르기 전에 다음 명령어를 실행하세요:
 
     mlagents-learn config/rollerball_config.yaml --run-id=RollerBall
 
-To monitor the statistics of Agent performance during training, use
-[TensorBoard](Using-Tensorboard.md).
+훈련 중 에이전트의 성능 통계를 모니터링하려면 [TensorBoard](Using-Tensorboard.md)를 사용하세요.
 
-![TensorBoard statistics display](images/mlagents-RollerAgentStats.png)
+  <p align="center">
+  <img src="images/mlagents-RollerAgentStats.png"
+       alt="TensorBoard statistics display"
+       height="800"
+       border="10" />
+</p>
 
 In particular, the _cumulative_reward_ and _value_estimate_ statistics show how
 well the Agent is achieving the task. In this example, the maximum reward an
