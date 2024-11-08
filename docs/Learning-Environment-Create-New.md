@@ -466,40 +466,28 @@ behaviors:
 - **가치 추정(value estimate)** : 각 상태에서 에이전트가 예상하는 보상입니다. 에이전트는 이 값을 통해 주어진 상태에서 행동을 선택할 때의 기대되는 보상을 추정하고, 학습을 통해 이 값을 점차 정확하게 만듭니다.
 
 ## Optional: Multiple Training Areas within the Same Scene
+## (선택사항: 동일한 씬 내에 여러 훈련 구역 만들기)
 
-In many of the [example environments](Learning-Environment-Examples.md), many
-copies of the training area are instantiated in the scene. This generally speeds
-up training, allowing the environment to gather many experiences in parallel.
-This can be achieved simply by instantiating many Agents with the same
-`Behavior Name`. Note that we've already simplified our transition to using
-multiple areas by creating the `TrainingArea` GameObject and relying on local
-positions in `RollerAgent.cs`. Use the following steps to parallelize your
-RollerBall environment:
+[example environments(예제 환경들)](Learning-Environment-Examples.md) 중 많은 경우에서 여러 복사본의 훈련 구역이 씬 안에 생성됩니다. 이렇게 하면 여러 경험을 동시에 수집할 수 있어 훈련 속도가 빨라집니다. 동일한 `Behavior Name`을 가진 여러 Agent를 인스턴스화함으로써 이를 간단하게 구현할 수 있습니다. 이미 `TrainingArea` GameObject를 생성하고 `RollerAgent.cs`에서 로컬 위치를 사용하여 여러 구역을 사용하는 방식으로 쉽게 전환할 수 있도록 설정해 두었습니다. RollerBall 환경을 병렬화하려면 다음 단계를 따르세요:
 
-1. Drag the TrainingArea GameObject, along with its attached GameObjects, into
-   your Assets browser, turning it into a prefab.
-1. You can now instantiate copies of the TrainingArea prefab. Drag them into
-   your scene, positioning them so that they do not overlap.
+1. `TrainingArea` GameObject와 그에 연결된 모든 GameObject들을 Assets 브라우저로 드래그하여 프리팹(Prefab)으로 만듭니다.
+2. 이제 `TrainingArea` 프리팹(Prefab)의 복사본을 인스턴스화 할 수 있습니다. 이 프리팹을 씬에 드래그하여 서로 겹치지 않도록 배치합니다.
 
-Alternatively, you can use the `TrainingAreaReplicator` to replicate training areas. Use the following steps:
+또는 `TrainingAreaReplicator`를 사용하여 훈련 영역을 복제할 수 있습니다. 다음 단계를 따르세요:
 
-1. Create a new empty Game Object in the scene.
-2. Click on the new object and add a TrainingAreaReplicator component to the empty Game Object through the inspector.
-3. Drag the training area to `Base Area` in the Training Area Replicator.
-4. Specify the number of areas to replicate and the separation between areas.
-5. Hit play and the areas will be replicated automatically!
+1. 씬에서 새로운 빈 `Game Object`를 생성합니다.
+2. 새로 만든 오브젝트를 클릭하고, `Inspector`에서 `TrainingAreaReplicator` 컴포넌트를 추가합니다.
+3. TrainingAreaReplicator의 `Base Area`에 훈련 영역을 드래그하여 넣습니다.
+4. 복제할 영역의 개수와 영역 사이의 간격을 지정합니다.
+5. Play 버튼을 누르면 영역이 자동으로 복제됩니다!
 
 ## Optional: Training Using Concurrent Unity Instances
-Another level of parallelization comes by training using
-[concurrent Unity instances](ML-Agents-Overview.md#additional-features).
-For example,
+## (선택사항: 동시 Unity 인스턴스를 사용한 훈련)
+또 다른 수준의 병렬화를 위해 [concurrent Unity instances(동시 Unity 인스턴스)](ML-Agents-Overview.md#additional-features)를 사용하여 훈련할 수 있습니다. 예를 들어,
 
 ```
 mlagents-learn config/rollerball_config.yaml --run-id=RollerBall --num-envs=2
 ```
 
-will start ML Agents training with two environment instances. Combining multiple
-training areas within the same scene, with concurrent Unity instances, effectively
-gives you two levels of parallelism to speed up training. The command line option
-`--num-envs=<n>` controls the number of concurrent Unity instances that are
-executed in parallel during training.
+이렇게 하면 두 개의 환경 인스턴스를 사용하여 ML Agents 훈련이 시작됩니다.
+하나의 씬 내 여러 훈련 영역과 동시 Unity 인스턴스를 함께 사용하면, 훈련 속도를 높이기 위한 이중 병렬화 효과를 얻을 수 있습니다. 명령줄 옵션 `--num-envs=<n>`을 사용하여 훈련 중 병렬로 실행되는 Unity 인스턴스의 개수를 조정할 수 있습니다.
