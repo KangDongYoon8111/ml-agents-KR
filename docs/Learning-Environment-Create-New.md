@@ -310,8 +310,7 @@ if (this.transform.localPosition.y < 0)
 
 #### OnActionReceived()
 
-With the action and reward logic outlined above, the final version of
-`OnActionReceived()` looks like:
+위에서 설명한 액션 및 보상 로직을 바탕으로 `OnActionReceived()`의 최종 버전은 다음과 같습니다:
 
 ```csharp
 public float forceMultiplier = 10;
@@ -341,15 +340,14 @@ public override void OnActionReceived(ActionBuffers actionBuffers)
 }
 ```
 
-Note the `forceMultiplier` class variable is defined before the method definition.
-Since `forceMultiplier` is public, you can set the value from the Inspector window.
+`forceMultiplier` 클래스 변수는 `OnActionReceived()` 메소드 정의 전에 정의되어 있으며,
+이는 에이전트가 적용하는 힘의 크기를 조절하는 데 사용됩니다.
+`forceMultiplier`가 public으로 선언되어 있으므로, Unity의 Inspector 창에서 값을 설정할 수 있습니다.
 
-## Final Agent Setup in Editor
+## Final Agent Setup in Editor(에디터에서 최종 에이전트 설정)
 
-Now that all the GameObjects and ML-Agent components are in place, it is time
-to connect everything together in the Unity Editor. This involves adding and
-setting some of the Agent Component's properties so that they are compatible
-with our Agent script.
+모든 게임 오브젝트와 ML-Agent 구성 요소가 준비되었으므로, Unity 에디터에서 모든 것을 연결할 차례입니다.
+이 과정에서는 에이전트 스크립트와 호환되도록 에이전트 구성 요소의 속성을 추가하고 설정하는 작업이 필요합니다.
 
 1. Select the **RollerAgent** GameObject to show its properties in the Inspector
    window.
