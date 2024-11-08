@@ -1,44 +1,35 @@
-# Example Learning Environments
+# Example Learning Environments(예제 학습 환경)
 
-<img src="../images/example-envs.png" align="middle" width="3000"/>
+<img src="images/example-envs.png" align="middle" width="3000"/>
 
-The Unity ML-Agents Toolkit includes an expanding set of example environments
-that highlight the various features of the toolkit. These environments can also
-serve as templates for new environments or as ways to test new ML algorithms.
-Environments are located in `Project/Assets/ML-Agents/Examples` and summarized
-below.
+Unity ML-Agents Toolkit에는 다양한 기능을 강조하는 예제 환경들이 포함되어 있으며,
+이는 새로운 환경을 위한 템플릿이나 새로운 ML 알고리즘을 테스트할 수 있는 방법으로 활용할 수 있습니다.
+이러한 환경들은 `Project/Assets/ML-Agents/Examples`에 위치해 있으며, 다음과 같이 요약됩니다.
 
-For the environments that highlight specific features of the toolkit, we provide
-the pre-trained model files and the training config file that enables you to
-train the scene yourself. The environments that are designed to serve as
-challenges for researchers do not have accompanying pre-trained model files or
-training configs and are marked as _Optional_ below.
+특정 기능을 강조하는 환경에는 미리 학습된 모델 파일과 스스로 학습할 수 있도록 해주는 설정 파일이 제공됩니다.
+연구자들을 위한 도전 과제로 설계된 환경은 미리 학습된 모델 파일이나 설정 파일이 포함되어 있지 않으며, 
+아래에 _Optional_ 로 표시되어 있습니다.
 
-This page only overviews the example environments we provide. To learn more on
-how to design and build your own environments see our
-[Making a New Learning Environment](Learning-Environment-Create-New.md) page. If
-you would like to contribute environments, please see our
-[contribution guidelines](CONTRIBUTING.md) page.
+이 페이지는 제공된 예제 환경에 대한 개요만은 다루고 있습니다.
+자체 학습 환경을 설계하고 구축하는 방법에 대해 더 자세히 알아보려면 [Making a New Learning Environment](Learning-Environment-Create-New.md) 페이지를 참고하세요. 환경에 기여하고 싶다면 [contribution guidelines](CONTRIBUTING.md) 페이지도 확인해 보세요.
 
-## Basic
+## Basic(기본)
 
 ![Basic](images/basic.png)
 
-- Set-up: A linear movement task where the agent must move left or right to
-  rewarding states.
-- Goal: Move to the most reward state.
-- Agents: The environment contains one agent.
-- Agent Reward Function:
-  - -0.01 at each step
-  - +0.1 for arriving at suboptimal state.
-  - +1.0 for arriving at optimal state.
-- Behavior Parameters:
-  - Vector Observation space: One variable corresponding to current state.
-  - Actions: 1 discrete action branch with 3 actions (Move left, do nothing, move
-    right).
-  - Visual Observations: None
-- Float Properties: None
-- Benchmark Mean Reward: 0.93
+- Set-up(설정) : 에이전트가 보상을 받는 상태로 왼쪽이나 오른쪽으로 이동해야 하는 선형 이동 작업입니다.
+- Goal(목표) : 가장 보상 높은 상태로 이동하기.
+- Agents(에이전트) : 환경에는 하나의 에이전트가 존재합니다.
+- Agent Reward Function(에이전트 보상 함수) :
+  - 각 단계마다 `-0.01`
+  - 비최적 상태에 도달 시 `+0.1`
+  - 최적 상태에 도달 시 `+1.0`
+- 행동 파라미터 :
+  - Vector Observation space(벡터 관찰 공간) : 현재 상태에 해당하는 하나의 변수.
+  - Actions(행동) : 3가지 행동(`왼쪽으로 이동`, `아무것도 하지 않음`, `오른쪽으로 이동`)을 가진 1개의 이산적 행동 분기.
+  - Visual Observations(시각적 관찰) : 없음
+- Float Properties(부동 소수점 속성) : 없음
+- Benchmark Mean Reward(벤치마크 평균 보상) : 0.93
 
 ## 3DBall: 3D Balance Ball
 
