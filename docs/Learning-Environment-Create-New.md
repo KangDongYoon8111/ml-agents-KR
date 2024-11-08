@@ -240,18 +240,9 @@ public class RollerAgent : Agent
        Extract:https://www.alexmasse.com/blog/2018/5/21/unity-3d-flappy-bird-ai-with-machine-learning 
 </p>
 
-The Agent sends the information we collect to the Brain, which uses it to make a
-decision. When you train the Agent (or use a trained model), the data is fed
-into a neural network as a feature vector. For an Agent to successfully learn a
-task, we need to provide the correct information. A good rule of thumb for
-deciding what information to collect is to consider what you would need to
-calculate an analytical solution to the problem.
-
-In our case, the information our Agent collects includes the position of the
-target, the position of the agent itself, and the velocity of the agent. This
-helps the Agent learn to control its speed so it doesn't overshoot the target
-and roll off the platform. In total, the agent observation contains 8 values as
-implemented below:
+에이전트가 수집하는 정보는 `목표물의 위치`, `에이전트 자신의 위치` 그리고 `에이전트의 속도`를 포함합니다.
+이를 통해 에이전트는 자신의 속도를 조절하여 목표물을 지나치지 않고 플랫폼에서 떨어지지 않도록 학습할 수 있습니다.
+다음과 같이 구현된 에이전트 관측은 총 8개의 값을 포함합니다.
 
 ```csharp
 public override void CollectObservations(VectorSensor sensor)
@@ -266,21 +257,18 @@ public override void CollectObservations(VectorSensor sensor)
 }
 ```
 
-### Taking Actions and Assigning Rewards
+### Taking Actions and Assigning Rewards(행동 수행 및 보상 할당)
 
-The final part of the Agent code is the `Agent.OnActionReceived()` method, which
-receives actions and assigns the reward.
+Agent 코드의 마지막 부분은 `Agent.OnActionReceived()` 메서드로, 이 메서드는 행동을 받아들이고 보상을 할당합니다.
 
-#### Actions
+#### Actions(행동)
 
-To solve the task of moving towards the target, the Agent (Sphere) needs to be
-able to move in the `x` and `z` directions. As such, the agent needs 2 actions:
-the first determines the force applied along the x-axis; and the
-second determines the force applied along the z-axis. (If we allowed the Agent
-to move in three dimensions, then we would need a third action.)
+과제를 해결하기 위해, 즉 목표를 향해 이동하기 위해 에이전트(Sphere)는 `x` 및 `z` 방향으로 이동할 수 있어야 합니다.
+따라서 에이전트는 2개의 행동이 필요합니다.
+**첫 번째** 행동은 x축을 따라 적용되는 힘을 결정하고, **두 번째** 행동은 z축을 따라 적용되는 힘을 결정합니다.
+(만약 에이전트가 3차원에서 이동할 수 있도록 한다면, 세 번째 행동도 필요하게 됩니다.)
 
-The RollerAgent applies the values from the `action[]` array to its Rigidbody
-component `rBody`, using `Rigidbody.AddForce()`:
+RollerAgent는 `action[]` 배열의 값을 Rigidbody 구성 요소인 `rBody`에 `Rigidbody.AddForce()`를 사용하여 적용합니다:
 
 ```csharp
 Vector3 controlSignal = Vector3.zero;
@@ -289,19 +277,16 @@ controlSignal.z = action[1];
 rBody.AddForce(controlSignal * forceMultiplier);
 ```
 
-#### Rewards
+#### Rewards(보상)
 
-Reinforcement learning requires rewards to signal which decisions are good and
-which are bad. The learning algorithm uses the rewards to determine whether it
-is giving the Agent the optimal actions. You want to reward an Agent for
-completing the assigned task. In this case, the Agent is given a reward of 1.0
-for reaching the Target cube.
+강화 학습에서는 보상을 통해 어떤 결정이 좋은지 나쁜지를 알립니다.
+학습 알고리즘은 보상을 사용하여 에이전트에게 최적의 행동을 제시하고 있는지 판단합니다.
+에이전트가 주어진 작업을 완료했을 때 보상을 주는 것이 좋습니다. 이 경우, 에이전트가 목표 큐브에 도달하면 1.0의 보상을 받습니다.
 
-Rewards are assigned in `OnActionReceived()`. The RollerAgent
-calculates the distance to detect when it reaches the target.
-When it does, the code calls `Agent.SetReward()` to assign a reward
-of 1.0 and marks the agent as finished by calling `EndEpisode()` on
-the Agent.
+보상은 `OnActionReceived()` 메서드에서 할당됩니다.
+RollerAgent는 목표에 도달 했을 때 감지하기 위해 거리를 계산합니다. 
+목표에 도달하면 코드에서 `Agent.SetReward()`를 호출하여 1.0의 보상을 할당하고 
+`EndEpisode()`를 호출하여 에이전트를 종료 상태로 표시합니다.
 
 ```csharp
 float distanceToTarget = Vector3.Distance(this.transform.localPosition, Target.localPosition);
@@ -313,8 +298,7 @@ if (distanceToTarget < 1.42f)
 }
 ```
 
-Finally, if the Agent falls off the platform, end the episode so that it can
-reset itself:
+마지막으로, 에이전트가 플랫폼에서 떨어진 에피소드를 종료하여 에이전트가 스스로 초기화할 수 있도록 합니다:
 
 ```csharp
 // Fell off platform
