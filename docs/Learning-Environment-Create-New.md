@@ -349,23 +349,32 @@ public override void OnActionReceived(ActionBuffers actionBuffers)
 모든 게임 오브젝트와 ML-Agent 구성 요소가 준비되었으므로, Unity 에디터에서 모든 것을 연결할 차례입니다.
 이 과정에서는 에이전트 스크립트와 호환되도록 에이전트 구성 요소의 속성을 추가하고 설정하는 작업이 필요합니다.
 
-1. Select the **RollerAgent** GameObject to show its properties in the Inspector
-   window.
-1. Drag the Target GameObject in the Hierarchy into the `Target` field in RollerAgent Script.
-1. Add a `Decision Requester` script with the **Add Component** button.
-   Set the **Decision Period** to `10`. For more information on decisions,
-   see [the Agent documentation](Learning-Environment-Design-Agents.md#decisions)
-1. Add a `Behavior Parameters` script with the **Add Component** button.
-   Set the Behavior Parameters of the Agent to the following:
+1. **RollerAgent** GameObject를 선택하여 Inspector 창에서 속성을 표시합니다.
+2. `Target` GameObject를 Hierarchy에서 드래그하여 RollerAgent 스크립트의 `Target` 필드에 넣습니다(할당합니다).
+3. **Add Component** 버튼을 사용하여 `Decision Requester`스크립트를 추가합니다. 이후 **Decision Period** 필드의 값을 `10`으로 설정합니다. `Decisions`에 관한 자세한 내용은 [the Agent documentation](Learning-Environment-Design-Agents.md#decisions)를 참고하세요.
+4. **Add Component** 버튼을 클릭하여 `Behavior Parameters` 스크립트를 추가하고, 아래와 같이 에이전트의 행동 매개변수를 설정합니다:
    - `Behavior Name`: _RollerBall_
    - `Vector Observation` > `Space Size` = 8
-   - `Actions` > `Continuous Actions` = 2
+   - `Actions` > `Continuous Actions` = 2   
 
-In the inspector, the `RollerAgent` should look like this now:
+Inspector에서 `RollerAgent`는 이제 다음과 같아야 합니다:
 
-![Agent GameObject Inspector window](images/roller-ball-agent.png){: style="width:400px"}
+  <p align="center">
+  <img src="images/roller-ball-agent.png"
+       alt="Agent GameObject Inspector window"
+       height="600"
+       border="10" />
+</p>
 
-Now you are ready to test the environment before training.
+이제 훈련 전에 환경을 테스트할 준비가 되었습니다.
+
+**note:**
+- **Decision Requester**는 Unity ML-Agents Toolkit에서 사용되는 컴포넌트로 에이전트가 주기적으로 의사 결정을 내리도록 요청하는 역할을 합니다. 이 컴포넌트는 에이전트가 훈련 중에 언제 의사 결정을 내릴지 지정하는데 사용됩니다. 기본적으로, 훈련된 에이전트는 환경에서 관찰한 정보를 바탕으로 행동을 선택하게 되는데, `Decision Requester`는 그 시점이 언제인지 정하는 역할을 합니다.
+- **Decision Period**는 속성으로서 에이전트가 얼마나 자주 결정을 내릴지를 설정합니다. 예를 들어 값을 10으로 설정하면, 에이전트는 10프레임마다 한 번씩 행동을 결정합니다. 이는 훈련이 더 빠르게 진행될 수 있도록 설정할 수 있는 중요한 값입니다.
+- **Behavior Parameters**는 Unity ML-Agents Toolkit에서 사용되는 중요한 컴포넌트로 에이전트의 행동 방식과 훈련 환경을 설정하는 역할을 합니다. 이 컴포넌트를 통해 에이전트가 학습하는 방식을 제어하고, 신경망 모델의 입력과 출력을 정의 할 수 있습니다.
+- **Behavior Name**는 속성으로서 에이전트의 행동 이름을 설정하는 필드입니다. 이 이름은 훈련 중에 사용되는 모델의 이름과 연결됩니다. 예를 들어, `RollerBall`이라고 설정하면, 훈련된 모델이 이 이름으로 저장되고 사용됩니다.
+- **Vector Observation**는 에이전트가 환경을 관찰할 때 사용할 벡터 형태의 입력 데이터를 설정하는 부분입니다. `Space Size`는 에이전트가 관찰하는 상태 벡터의 크기를 정의합니다. 예를 들어 `Space Size = 8`로 설정하면, 에이전트는 8개의 값(위치, 속도 등)을 관찰하고, 이 값들을 신경망에 입력으로 제공합니다.
+- **Actions**는 에이전트가 수행할 수 있는 행동을 정의합니다. `Continuous Actions`는(은) 연속적인 행동을 수행하는 경우, 예를 들어 `2`로 설정하면, 에이전트가 두 개의 연속적인 값을 기반으로 행동을 결정하도록 훈련합니다. 각 행동은 `x`축과 `z`축 방향으로의 힘을 적용하는 방식으로 정의할 수 있습니다. 
 
 ## Testing the Environment
 
