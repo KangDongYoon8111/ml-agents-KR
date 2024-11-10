@@ -29,7 +29,7 @@ Unity 프로젝트에서 ML-Agents Toolkit을 사용하는 기본 단계는 다�
 첫 번째 작업은 새로운 Unity 프로젝트를 만들고 ML-Agents 자산을 가져오는 것입니다:
 
 1. **Unity Hub**를 실행하고 "RollerBall"이라는 이름으로 새로운 3D 프로젝트를 만듭니다.
-2. [Add the ML-Agents Unity package(ML-Agents Unity 패키지 추가](Installation.md#install-the-comunityml-agents-unity-package)
+2. [Add the ML-Agents Unity package(ML-Agents Unity 패키지 추가)](Installation.md#install-the-comunityml-agents-unity-package)
    하여 프로젝트에 ML-Agents를 설치합니다.
 
 이제 Unity **Project** 창에서 다음 자산을 확인할 수 있어야 합니다:
