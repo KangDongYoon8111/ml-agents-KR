@@ -104,7 +104,7 @@ Floor, Target 그리고 RollerAgent를 하나의 빈 GameObject 아래에 그룹
 
 1. 프로젝트 `Hierarchy` 창에서 마우스 오른쪽 클릭하여 `빈 GameObject`를 생성합니다.
    이 GameObject의 이름을 **TrainingArea**로 지정합니다.
-1. RollerAgent 객체를 선택한 후, `Inspector` 창에서 `Transform` 컴포넌트을 **초기화**하여 아래와 같이 설정합니다.
+1. TrainingArea 객체를 선택한 후, `Inspector` 창에서 `Transform` 컴포넌트을 **초기화**하여 아래와 같이 설정합니다.
    - **Position** = `(0, 0, 0)`
    - **Rotation** = `(0, 0, 0)`
    - **Scale** = `(1, 1, 1)`
