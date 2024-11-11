@@ -74,41 +74,24 @@ ML-Agents를 사용하면 이와 같은 NPC(이들을 **에이전트(Agents)** �
   에이전트가 특정 시점에 무엇을 보고 있는지를 나타냅니다. 에이전트의 관찰을 환경(또는 게임)의 **상태(state)** 와 혼동하는 경우가 많습니다.
   환경 상태는 모든 게임 캐릭터가 포함된 전체 장면에 대한 정보를 나타냅니다. 반면 에이전트의 관찰은 에이전트가 인지하는 정보만 포함하며, 환경 상태의 일부 집합에 불과합니다.
   예를 들어, 의무병의 관찰에는 의무병이 알지 못하는 숨은 적의 정보가 포함되지 않습니다.
-- **Actions** - what actions the medic can take. Similar to observations,
-  actions can either be continuous or discrete depending on the complexity of
-  the environment and agent. In the case of the medic, if the environment is a
-  simple grid world where only their location matters, then a discrete action
-  taking on one of four values (north, south, east, west) suffices. However, if
-  the environment is more complex and the medic can move freely then using two
-  continuous actions (one for direction and another for speed) is more
-  appropriate.
+- **행동(Actions)** - 의무병이 취할 수 있는 행동입니다. 관찰과 마찬가지로 행동은 환경과 에이전트의 복잡성에 따라 연속적이거나 이산적일 수 있습니다.
+  의무병의 경우, 환경이 단순한 그리드 세계에서 위치만 중요한 경우, 네 방향(동, 서, 남, 북) 중 하나를 선택하는 이산적인 행동으로 충분합니다.
+  하지만 환경이 더 복잡하고 의무병이 자유롭게 움직일 수 있다면, 방향을 나타내는 행동 하나와 속도를 나타내는 행동 하나를 사용하는 연속적인 행동이 더 적합합니다.
+- **보상 신호(Reward signals)** - 의무병이 얼마나 잘 수행하고 있는지를 나타내는 `스칼라 값`입니다.
+  보상 신호는 매 순간 제공될 필요는 없으며, 의무병이 좋은 행동 또는 나쁜 행동을 했을 때만 제공됩니다. 예를 들어, 의무병이 죽으면 큰 음의 보상을 받을 수 있고,
+  부상당한 팀원을 구할 때마다 적당한 긍정적인 보상을 받을 수 있으며, 부상당한 팀원이 지원 없이 죽으면 적당한 음의 보상을 받을 수 있습니다.
+  보상 신호는 작업의 목표가 에이전트에게 전달되는 방식이므로, 보상을 최대화하는 것이 원하는 최적 행동을 생성하도록 설정해야 합니다.
+  - **DK Check Point** : `스칼라 값`이란 에이전트의 학습을 위해 사용되는 단일적인 숫자 형태(하나의 숫자 값을 의미).
 - **Reward signals** - a scalar value indicating how well the medic is doing.
-  Note that the reward signal need not be provided at every moment, but only
-  when the medic performs an action that is good or bad. For example, it can
-  receive a large negative reward if it dies, a modest positive reward whenever
-  it revives a wounded team member, and a modest negative reward when a wounded
-  team member dies due to lack of assistance. Note that the reward signal is how
-  the objectives of the task are communicated to the agent, so they need to be
-  set up in a manner where maximizing reward generates the desired optimal
-  behavior.
 
-After defining these three entities (the building blocks of a **reinforcement
-learning task**), we can now _train_ the medic's behavior. This is achieved by
-simulating the environment for many trials where the medic, over time, learns
-what is the optimal action to take for every observation it measures by
-maximizing its future reward. The key is that by learning the actions that
-maximize its reward, the medic is learning the behaviors that make it a good
-medic (i.e. one who saves the most number of lives). In **reinforcement
-learning** terminology, the behavior that is learned is called a **policy**,
-which is essentially a (optimal) mapping from observations to actions. Note that
-the process of learning a policy through running simulations is called the
-**training phase**, while playing the game with an NPC that is using its learned
-policy is called the **inference phase**.
+이 세 가지 `엔티티(entities)`(**강화 학습 작업** 의 기본 구성 요소)를 정의한 후, 이제 의무병의 행동을 _훈련_ 할 수 있습니다.
+이는 의무병이 환경을 여러번 시뮬레이션하면서, 시간이 지남에 따라 각 관찰을 통해 최적의 행동을 배우는 방식으로 이루어집니다.
+목표는 미래의 보상을 극대화하는 행동을 배우는 것입니다. 핵심은 보상을 극대화하는 행동을 배우면, 의무병이 좋은 의무병이 되는 행동을 배우게 된다는 점입니다.(즉, 가장 많은 생명을 구하는 메딕.)
+**강화 학습** 용어로, 학습된 행동은 **정책(Policy)** 이라고 하며, 이는 본질적으로 관찰에서 행동으로의 (최적의) 매핑입니다.
+학습된 정책을 사용하여 게임을 플레이하는 과정은 **추론 단계(inference phase)** 라고 하고, 시뮬레이션을 실행하면서 정책을 학습하는 과정은 **훈련 단계(training phase)** 라고 부릅니다.
 
-The ML-Agents Toolkit provides all the necessary tools for using Unity as the
-simulation engine for learning the policies of different objects in a Unity
-environment. In the next few sections, we discuss how the ML-Agents Toolkit
-achieves this and what features it provides.
+ML-Agents Toolkit은 Unity를 시뮬레이션 엔진으로 사용하여 Unity 환경에서 다양한 객체의  **정책(Policy)** 을 학습하는데 필요한 모든 도구를 제공합니다.
+다음 섹션에서는 ML-Agents Toolkit이 이를 어떻게 구현하는지와 제공하는 기능에 대해 설명합니다.
 
 ## Key Components
 
