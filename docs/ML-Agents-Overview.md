@@ -137,6 +137,12 @@ The ML-Agents Toolkit contains five high-level components:
   algorithms.
 
 <p align="center">
+  <img src="images/learning_environment_basic.png"
+       alt="Simplified ML-Agents Scene Block Diagram"
+       width="600"
+       border="10" />
+</p>
+<p align="center">
   <img src="../images/learning_environment_basic.png"
        alt="Simplified ML-Agents Scene Block Diagram"
        width="600"
