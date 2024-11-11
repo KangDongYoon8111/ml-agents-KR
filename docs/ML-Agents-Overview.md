@@ -92,32 +92,21 @@ ML-Agents를 사용하면 이와 같은 NPC(이들을 **에이전트(Agents)** �
 ML-Agents Toolkit은 Unity를 시뮬레이션 엔진으로 사용하여 Unity 환경에서 다양한 객체의  **정책(Policy)** 을 학습하는데 필요한 모든 도구를 제공합니다.
 다음 섹션에서는 ML-Agents Toolkit이 이를 어떻게 구현하는지와 제공하는 기능에 대해 설명합니다.
 
-## Key Components
+## Key Components(주요 구성 요소)
 
-The ML-Agents Toolkit contains five high-level components:
+ML-Agents Toolkit은 다섯 가지 주요 구성 요소로 이루어져 있습니다:
 
-- **Learning Environment** - which contains the Unity scene and all the game
-  characters. The Unity scene provides the environment in which agents observe,
-  act, and learn. How you set up the Unity scene to serve as a learning
-  environment really depends on your goal. You may be trying to solve a specific
-  reinforcement learning problem of limited scope, in which case you can use the
-  same scene for both training and for testing trained agents. Or, you may be
-  training agents to operate in a complex game or simulation. In this case, it
-  might be more efficient and practical to create a purpose-built training
-  scene. The ML-Agents Toolkit includes an ML-Agents Unity SDK
-  (`com.unity.ml-agents` package) that enables you to transform any Unity scene
-  into a learning environment by defining the agents and their behaviors.
-- **Python Low-Level API** - which contains a low-level Python interface for
-  interacting and manipulating a learning environment. Note that, unlike the
-  Learning Environment, the Python API is not part of Unity, but lives outside
-  and communicates with Unity through the Communicator. This API is contained in
-  a dedicated `mlagents_envs` Python package and is used by the Python training
-  process to communicate with and control the Academy during training. However,
-  it can be used for other purposes as well. For example, you could use the API
-  to use Unity as the simulation engine for your own machine learning
-  algorithms. See [Python API](Python-LLAPI.md) for more information.
-- **External Communicator** - which connects the Learning Environment with the
-  Python Low-Level API. It lives within the Learning Environment.
+- **학습 환경(Learning Environment)** - Unity 씬과 모든 게임 캐릭터가 포함된 환경입니다.
+  Unity 씬은 에이전트가 관찰하고, 행동하며 학습하는 환경을 제공합니다.
+  Unity 씬을 학습 환경으로 설정하는 방식은 목표에 따라 달라집니다.
+  특정 범위의 강화 학습 문제를 해결하려는 경우, 훈련과 훈련된 에이전트를 테스트하는데 동일한 씬을 사용할 수 있습니다.
+  또는 에이전트를 복잡한 게임이나 시뮬레이션에서 훈련시키려는 경우, 목적에 맞게 훈련 씬을 따로 만드는 것이 더 효율적이고 실용적일 수 있습니다.
+  ML-Agents Toolkit은 Unity 씬을 학습 환경으로 변환할 수 있도록 에이전트와 그들의 행동을 정의하는 기능을 제공하는 ML-Agents Unity SDK(`com.unity.ml-agents` package)를 포함하고 있습니다.
+- **Python 저수준 API(Python Low-Level API)** - 학습 환경과 상호작용하고 이를 조작하기 위한 저수준의 Python 인터페이스입니다.
+  학습 환경과 달리, Python API는 Unity의 일부가 아니며, 외부에서 존재하며 Communidator를 통해 Unity와 통신합니다.
+  이 API는 `mlagents_envs`라는 전용 Python 패키지에 포함되어 있으며, Python 훈련 프로세스가 훈련 중에 Academy와 통신하고 이를 제어하는데 사용됩니다. 그러나 이 API는 다른 용도로도 사용될 수 있습니다. 예를 들어, Unity를 시뮬레이션 엔진으로 사용하여 자신만의 머신 러닝 알고리즘을 실행할 수도 있습니다. 더 많은 정보는 [Python API](Python-LLAPI.md)를 참조하십시오.
+- **외부 커뮤니케이터(External Communicator)** - 학습 환경과 Python 저수준 API를 연결하는 역할을 합니다.
+  이 커뮤니케이터는 학습 환경 내에서 존재합니다.
 - **Python Trainers** which contains all the machine learning algorithms that
   enable training agents. The algorithms are implemented in Python and are part
   of their own `mlagents` Python package. The package exposes a single
