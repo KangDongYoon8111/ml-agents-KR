@@ -32,82 +32,48 @@
 - [Additional Features](#additional-features)
 - [Summary and Next Steps](#summary-and-next-steps)
 
-**The Unity Machine Learning Agents Toolkit** (ML-Agents Toolkit) is an
-open-source project that enables games and simulations to serve as environments
-for training intelligent agents. Agents can be trained using reinforcement
-learning, imitation learning, neuroevolution, or other machine learning methods
-through a simple-to-use Python API. We also provide implementations (based on
-PyTorch) of state-of-the-art algorithms to enable game developers and
-hobbyists to easily train intelligent agents for 2D, 3D and VR/AR games. These
-trained agents can be used for multiple purposes, including controlling NPC
-behavior (in a variety of settings such as multi-agent and adversarial),
-automated testing of game builds and evaluating different game design decisions
-pre-release. The ML-Agents Toolkit is mutually beneficial for both game
-developers and AI researchers as it provides a central platform where advances
-in AI can be evaluated on Unity’s rich environments and then made accessible to
-the wider research and game developer communities.
+**The Unity Machine Learning Agents Toolkit** (ML-Agents Toolkit)은 지능형 에이전트 훈련 환경으로
+게임과 시뮬레이션을 사용할 수 있게 해주는 오픈 소스 프로젝트입니다.
+이 툴킷은 간단한 파이썬 API를 통해 `강화학습`, `모방학습`, `신경진화` 또는 기타 `머신러닝` 방법으로 에이전트를 훈련할 수 있도록 합니다.
+또한, 2D, 3D, VR/AR 게임에서 지능형 에이전트를 쉽게 훈련할 수 있도록 PyTorch 기반 최신 알고리즘의 구현을 제공합니다.
 
-Depending on your background (i.e. researcher, game developer, hobbyist), you
-may have very different questions on your mind at the moment. To make your
-transition to the ML-Agents Toolkit easier, we provide several background pages
-that include overviews and helpful resources on the
-[Unity Engine](Background-Unity.md),
-[machine learning](Background-Machine-Learning.md) and
-[PyTorch](Background-PyTorch.md). We **strongly** recommend browsing the
-relevant background pages if you're not familiar with a Unity scene, basic
-machine learning concepts or have not previously heard of PyTorch.
+훈련된 에이전트는 다양한 목적으로 활용될 수 있습니다. 여기서는 NPC 행동제어(다중 에이전트 및 적대적 설정 포함), 게임 빌드의 자동 테스트, 
+사전 릴리스 단계에서의 다양한 게임 디자인 결정 평가 등이 포함됩니다.
+ML-Agents Toolkit은 유니티의 풍부한 환경에서 AI 연구 성과를 평가하고 이를 연구자 및 게임 개발자 커뮤니티에 제공하는 중심 플랫폼으로서 게임 개발자와 AI 연구자 모두에게 유익한 도구입니다.
 
-The remainder of this page contains a deep dive into ML-Agents, its key
-components, different training modes and scenarios. By the end of it, you should
-have a good sense of _what_ the ML-Agents Toolkit allows you to do. The
-subsequent documentation pages provide examples of _how_ to use ML-Agents. To
-get started, watch this
-[demo video of ML-Agents in action](https://www.youtube.com/watch?v=fiQsmdwEGT8&feature=youtu.be).
+사용자 배경(연구자, 게임 개발자, 취미자)에 따라 ML-Agents Toolkit을 처음 접할 때 궁금한 점이 다를 수 있습니다.
+툴 킷을 쉽게 활용할 수 있도록 [Unity Engine](Background-Unity.md), [machine learning](Background-Machine-Learning.md), [PyTorch](Background-PyTorch.md)에 대한 개요와 유용한 자료를 제공하는 배경 페이지가 마련되어 있습니다.
+유니티 씬에 대한 기본 개념이 없거나 머신러닝 기본 개념에 익숙하지 않은 경우, 또는 PyTorch를 처음 접하는 경우 관련 배경 페이지를 꼭 확인해 보시기 바랍니다.
 
-## Running Example: Training NPC Behaviors
+이 페이지의 나머지 부분에서는 ML-Agents, 주요 구성 요소, 다양한 훈련 모드와 시나리오에 대한 심층적인 설명을 제공합니다.
+이 내용을 통해 ML-Agents Toolkit이 무엇을 할 수 있는지에 대한 감을 잡으실 수 있습니다.
+이 후의 문서 페이지는 ML-Agents를 어떻게 사용하는지에 대한 예시를 제공합니다.
+시작하시려면 [ML-Agents가 작동하는 데모 비디오](https://www.youtube.com/watch?v=fiQsmdwEGT8&feature=youtu.be)를 시청해 보세요.
 
-To help explain the material and terminology in this page, we'll use a
-hypothetical, running example throughout. We will explore the problem of
-training the behavior of a non-playable character (NPC) in a game. (An NPC is a
-game character that is never controlled by a human player and its behavior is
-pre-defined by the game developer.) More specifically, let's assume we're
-building a multi-player, war-themed game in which players control the soldiers.
-In this game, we have a single NPC who serves as a medic, finding and reviving
-wounded players. Lastly, let us assume that there are two teams, each with five
-players and one NPC medic.
+## Running Example: Training NPC Behaviors(실행 예제: NPC 행동 훈련)
 
-The behavior of a medic is quite complex. It first needs to avoid getting
-injured, which requires detecting when it is in danger and moving to a safe
-location. Second, it needs to be aware of which of its team members are injured
-and require assistance. In the case of multiple injuries, it needs to assess the
-degree of injury and decide who to help first. Lastly, a good medic will always
-place itself in a position where it can quickly help its team members. Factoring
-in all of these traits means that at every instance, the medic needs to measure
-several attributes of the environment (e.g. position of team members, position
-of enemies, which of its team members are injured and to what degree) and then
-decide on an action (e.g. hide from enemy fire, move to help one of its
-members). Given the large number of settings of the environment and the large
-number of actions that the medic can take, defining and implementing such
-complex behaviors by hand is challenging and prone to errors.
+이 페이지에서 다루는 내용과 용어를 설명하기 위해, 예시로 가상의 사례를 사용하겠습니다.
+우리는 게임 내 비플레이어 캐릭터(NPC)의 행동을 훈련하는 문제를 탐구할 것입니다.
+(NPC는 게임 내에서 인간 플레이어가 제어하지 않으며, 게임 개발자가 미리 정의한 행동을 수행하는 캐릭터입니다.)
+구체적으로, 플레이어가 병사를 조종하는 멀티플레이어 전쟁 테마의 게임을 구축한다고 가정해 봅시다.
+이 게임에서 우리는 부상당한 플레이어를 찾아 회복시키는 역할을 맡은 NPC '의무병'을 배치합니다.
+또한 두 팀이 각각 다섯 명의 플레이어와 한 명의 NPC 의무병으로 구성된다고 가정해 봅시다.
 
-With ML-Agents, it is possible to _train_ the behaviors of such NPCs (called
-**Agents**) using a variety of methods. The basic idea is quite simple. We need
-to define three entities at every moment of the game (called **environment**):
+의무병의 행동은 상당히 복잡합니다. 먼저, 의무병은 부상을 피해야 하므로 위험 상황을 감지하고 안전한 위치로 이동하는 능력이 필요합니다.
+툴째, 팀원 중 부상당한 사람을 파악하고 도움을 필요로 하는 사람을 인지해야 합니다. 만약 여러명이 부상당했을 경우, 부상의 정도를 평가하고 누구를 먼저 도울지 결정해야 합니다.
+마지막으로 훌륭한 의무병은 항상 팀원을 신속히 도울 수 있는 위치에 자리를 잡습니다.
+이러한 모든 특성을 고려한다면, 의무병은 매 순간 환경의 여러 속성(예: 팀원의 위치, 적의 위치, 부상당함 팀원의 상태와 정도)을 측정하고 행동(예: 적의 공격을 피하기 위해 숨거나, 팀원 중 한명을 돕기 위해 이동)을 결정해야 합니다.
+환경의 다양한 상황과 의무병이 취할 수 있는 수많은 행동을 감안할 때, 이러한 복잡한 행동을 수동으로 정의하고 구현하는 것은 어렵고 오류가 발생하기 쉽습니다.
 
-- **Observations** - what the medic perceives about the environment.
-  Observations can be numeric and/or visual. Numeric observations measure
-  attributes of the environment from the point of view of the agent. For our
-  medic this would be attributes of the battlefield that are visible to it. For
-  most interesting environments, an agent will require several continuous
-  numeric observations. Visual observations, on the other hand, are images
-  generated from the cameras attached to the agent and represent what the agent
-  is seeing at that point in time. It is common to confuse an agent's
-  observation with the environment (or game) **state**. The environment state
-  represents information about the entire scene containing all the game
-  characters. The agents observation, however, only contains information that
-  the agent is aware of and is typically a subset of the environment state. For
-  example, the medic observation cannot include information about an enemy in
-  hiding that the medic is unaware of.
+ML-Agents를 사용하면 이와 같은 NPC(이들을 **에이전트(Agents)** 라고 부릅니다.)의 행동을 다양한 방법으로 훈련 시킬 수 있습니다.
+기본적인 개념은 매우 간단합니다. 게임의 매 순간에 세 가지 요소를 정의해야 합니다.(**환경** 이라고 부릅니다.):
+
+- **관찰(Observations)** - 의무병이 환경에서 인지하는 정보입니다. 관찰은 수치형과 시각적 형태로 이루어질 수 있습니다.
+  수치형 관찰은 에이전트의 관점에서 환경의 속성을 측정합니다. 의무병의 경우, 전장에서 볼 수 있는 속성들이 이에 해당합니다.
+  대부분의 복잡한 환경에서는 에이전트가 여러 연속적인 수치형 관찰이 필요합니다. 반면 시각적 관찰은 에이전트에 부착된 카메라에서 생성된 이미지로,
+  에이전트가 특정 시점에 무엇을 보고 있는지를 나타냅니다. 에이전트의 관찰을 환경(또는 게임)의 **상태(state)** 와 혼동하는 경우가 많습니다.
+  환경 상태는 모든 게임 캐릭터가 포함된 전체 장면에 대한 정보를 나타냅니다. 반면 에이전트의 관찰은 에이전트가 인지하는 정보만 포함하며, 환경 상태의 일부 집합에 불과합니다.
+  예를 들어, 의무병의 관찰에는 의무병이 알지 못하는 숨은 적의 정보가 포함되지 않습니다.
 - **Actions** - what actions the medic can take. Similar to observations,
   actions can either be continuous or discrete depending on the complexity of
   the environment and agent. In the case of the medic, if the environment is a
