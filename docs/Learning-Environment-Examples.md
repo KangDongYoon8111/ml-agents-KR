@@ -35,37 +35,31 @@ Unity ML-Agents Toolkit에는 다양한 기능을 강조하는 예제 환경들�
 
 ![3D Balance Ball](images/balance.png)
 
-- Set-up: A balance-ball task, where the agent balances the ball on it's head.
-- Goal: The agent must balance the ball on it's head for as long as possible.
-- Agents: The environment contains 12 agents of the same kind, all using the
-  same Behavior Parameters.
-- Agent Reward Function:
-  - +0.1 for every step the ball remains on it's head.
-  - -1.0 if the ball falls off.
-- Behavior Parameters:
-  - Vector Observation space: 8 variables corresponding to rotation of the agent
-    cube, and position and velocity of ball.
-  - Vector Observation space (Hard Version): 5 variables corresponding to
-    rotation of the agent cube and position of ball.
-  - Actions: 2 continuous actions, with one value corresponding to
-    X-rotation, and the other to Z-rotation.
-  - Visual Observations: Third-person view from the upper-front of the agent. Use
-    `Visual3DBall` scene.
-- Float Properties: Three
-  - scale: Specifies the scale of the ball in the 3 dimensions (equal across the
-    three dimensions)
-    - Default: 1
-    - Recommended Minimum: 0.2
-    - Recommended Maximum: 5
-  - gravity: Magnitude of gravity
-    - Default: 9.81
-    - Recommended Minimum: 4
-    - Recommended Maximum: 105
-  - mass: Specifies mass of the ball
-    - Default: 1
-    - Recommended Minimum: 0.1
-    - Recommended Maximum: 20
-- Benchmark Mean Reward: 100
+- Set-up(설정): 에이전트가 머리 위에 공을 균형 있게 유지해야 하는 작업입니다.
+- Goal(목표): 에이전트는 가능한 한 오랫동안 머리 위에 공을 균형 있게 유지해야 합니다.
+- Agents(에이전트): 동일한 행동 파라미터를 사용하는 동일한 유형의 에이전트 12명이 환경에 있습니다.
+- Agent Reward Function(에이전트 보상 함수):
+  - 공이 머리 위에 유지된 매 단계마다 +0.1.
+  - 공이 떨어지면 -1.0.
+- Behavior Parameters(행동 파라미터):
+  - Vector Observation space(벡터 관찰 공간): 에이전트 큐브의 회전, 공의 위치와 속도에 해당하는 8개의 변수.
+  - Vector Observation space (Hard Version)(어려운 버전): 에이전트 큐브의 회전과 공의 위치에 해당하는 5개의 변수.
+  - Actions(행동): X축 회전과 Z축 회전에 해당하는 두 개의 연속적 행동 값.
+  - Visual Observations(시각적 관찰): 에이전트의 상단 전면에서 보는 3인칭 시점. `Visual3DBall` 씬 사용.
+- Float Properties(부동 소수점 속성): Three(3가지)
+  - scale: 공의 3차원 크기 (세 차원에서 동일)
+    - Default(기본값): 1
+    - Recommended Minimum(추천 최소값): 0.2
+    - Recommended Maximum(추천 최대값): 5
+  - gravity: 중력의 크기
+    - Default(기본값): 9.81
+    - Recommended Minimum(추천 최소값): 4
+    - Recommended Maximum(추천 최대값): 105
+  - mass: 공의 질량
+    - Default(기본값): 1
+    - Recommended Minimum(추천 최소값): 0.1
+    - Recommended Maximum(추천 최대값): 20
+- Benchmark Mean Reward(벤치마크 평균 보상): 100
 
 ## GridWorld
 
