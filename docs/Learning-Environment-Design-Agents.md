@@ -36,41 +36,36 @@
   - [Groups for Cooperative Scenarios](#groups-for-cooperative-scenarios)
 - [Recording Demonstrations](#recording-demonstrations)
 
-An agent is an entity that can observe its environment, decide on the best
-course of action using those observations, and execute those actions within its
-environment. Agents can be created in Unity by extending the `Agent` class. The
-most important aspects of creating agents that can successfully learn are the
-observations the agent collects, and the reward you assign to estimate the value
-of the agent's current state toward accomplishing its tasks.
+에이전트(Agent)는 환경을 관찰하고, 그 관찰을 바탕으로 최적의 행동을 결정하여 이를 실행하는 존재입니다.
+Unity에서는 `Agent` 클래스를 확장하여 에이전트를 생성할 수 있습니다.
+에이전트를 성공적으로 학습시키기 위해 가장 중요한 요소는 에이전트가 수집하는 **관찰 데이터(observations)** 와
+에이전트의 현재 상태가 주어진 작업을 달성하는 데 얼마나 유용한지를 평가하는 **보상 값(reward)** 입니다.
 
-An Agent passes its observations to its Policy. The Policy then makes a decision
-and passes the chosen action back to the agent. Your agent code must execute the
-action, for example, move the agent in one direction or another. In order to
-[train an agent using reinforcement learning](Learning-Environment-Design.md),
-your agent must calculate a reward value at each action. The reward is used to
-discover the optimal decision-making policy.
+에이전트는 자신의 관찰 데이터를 **정책(Policy)** 에 전달합니다.
+`정책(Policy)`은 이 데이터를 기반으로 결정을 내리고, 선택한 행동을 에이전트에게 다시 전달합니다.
+에이전트 코드는 이 행동을 수행해야 하며, 예를 들어 에이전트를 특정 방향으로 이동시키는 작업을 포함할 수 있습니다.
+에이전트를 [강화 학습을 통해 학습시키기](Learning-Environment-Design.md) 위해서는
+에이전트가 각 행동에서 `보상 값(reward)`을 계산해야 합니다.
+이 보상은 최적의 의사 결정 `정책(Policy)`을 찾는데 사용됩니다.
 
-The `Policy` class abstracts out the decision making logic from the Agent itself
-so that you can use the same Policy in multiple Agents. How a Policy makes its
-decisions depends on the `Behavior Parameters` associated with the agent. If you
-set `Behavior Type` to `Heuristic Only`, the Agent will use its `Heuristic()`
-method to make decisions which can allow you to control the Agent manually or
-write your own Policy. If the Agent has a `Model` file, its Policy will use the
-neural network `Model` to take decisions.
+`Policy` 클래스는 에이전트의 의사 결정 로직을 에이전트 자체로부터 분리하여,
+여러 에이전트에서 동일한 정책을 사용할 수 있도록 합니다. 정책이 결정을 내리는 방식은 에이전트에 연관된 `Behavior Parameters`에 따라 달라집니다.
+만약 `Behavior Type`을 `Heuristic Only`로 설정하면, 에이전트는 `Heuristic()` 메서드를 사용하여 결정을 내리며,
+이를 통해 수동으로 에이전트를 제어하거나 사용자 지정 정책을 작성할 수 있습니다.
+에이전트에 `Model` 파일이 있는 경우, 정책은 신경망 `Model`을 사용하여 결정을 내리게 됩니다.
 
-When you create an Agent, you should usually extend the base Agent class. This
-includes implementing the following methods:
+에이전트를 생성할 때는 일반적으로 기본 `Agent` 클래스를 확장해야 합니다.
+이 과정에서 다음 메서드들을 구현해야 합니다 :
 
-- `Agent.OnEpisodeBegin()` — Called at the beginning of an Agent's episode,
-  including at the beginning of the simulation.
-- `Agent.CollectObservations(VectorSensor sensor)` — Called every step that the Agent
-  requests a decision. This is one possible way for collecting the Agent's
-  observations of the environment; see [Generating Observations](#generating-observations)
-  below for more options.
-- `Agent.OnActionReceived()` — Called every time the Agent receives an action to
-  take. Receives the action chosen by the Agent. It is also common to assign a
-  reward in this method.
-- `Agent.Heuristic()` - When the `Behavior Type` is set to `Heuristic Only` in
+- `Agent.OnEpisodeBegin()` — 에이전트의 에피소드 시작 시 호출되며, 시뮬레이션 시작 시에도 호출됩니다.
+- `Agent.CollectObservations(VectorSensor sensor)` — 에이전트가 결정을 요청할 때마다 호출됩니다.
+  이 메서드는 환경에 대한 에이전트의 관찰을 수집하는 한 가지 방법으로,
+  다른 방법에 대해서는 [Generating Observations(관찰 생성)](#generating-observations)에서 확인할 수 있습니다.
+- `Agent.OnActionReceived()` — 에이전트가 실행할 액션을 받을 때마다 호출됩니다.
+  에이전트가 선택한 액션을 받고, 이 메서드에서 보상을 할당하는 것도 일반적입니다.
+- `Agent.Heuristic()` - 에이전트의 `Behavior Parameters`에서 `Behavior Type`이 `Heuristic Only`로 설정되면,
+  에이전트는 `Heuristic()` 메서드를 사용하여 액션을 생성합니다.
+  이 경우, `Heuristic()` 메서드는 인자로 제동괸 플룻(부동 소수) 배열에 액션을 작성해야 합니다.
   the Behavior Parameters of the Agent, the Agent will use the `Heuristic()`
   method to generate the actions of the Agent. As such, the `Heuristic()` method
   writes to the array of floats provided to the Heuristic method as argument.
