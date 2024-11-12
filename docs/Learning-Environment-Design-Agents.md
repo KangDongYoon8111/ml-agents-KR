@@ -65,56 +65,45 @@ Unity에서는 `Agent` 클래스를 확장하여 에이전트를 생성할 수 �
   에이전트가 선택한 액션을 받고, 이 메서드에서 보상을 할당하는 것도 일반적입니다.
 - `Agent.Heuristic()` - 에이전트의 `Behavior Parameters`에서 `Behavior Type`이 `Heuristic Only`로 설정되면,
   에이전트는 `Heuristic()` 메서드를 사용하여 액션을 생성합니다.
-  이 경우, `Heuristic()` 메서드는 인자로 제동괸 플룻(부동 소수) 배열에 액션을 작성해야 합니다.
-  the Behavior Parameters of the Agent, the Agent will use the `Heuristic()`
-  method to generate the actions of the Agent. As such, the `Heuristic()` method
-  writes to the array of floats provided to the Heuristic method as argument.
-  __Note__: Do not create a new float array of action in the `Heuristic()` method,
-  as this will prevent writing floats to the original action array.
+  이 경우, `Heuristic()` 메서드는 인자로 제공된 floats 배열에 액션을 작성해야 합니다. 
+   __Note__: `Heuristic()` 메서드에서 새 float 배열을 생성하지 마세요. 그렇게 하면 원래의 액션 배열에 float을 작성하는 것을 방해 할 수 있습니다.
 
-As a concrete example, here is how the Ball3DAgent class implements these methods:
+구체적인 예로, 다음은 Ball3DAgent 클래스가 이러한 메서드를 구현하는 방식입니다:
 
-- `Agent.OnEpisodeBegin()` — Resets the agent cube and ball to their starting
-  positions. The function randomizes the reset values so that the training
-  generalizes to more than a specific starting position and agent cube
-  orientation.
-- `Agent.CollectObservations(VectorSensor sensor)` — Adds information about the
-  orientation of the agent cube, the ball velocity, and the relative position
-  between the ball and the cube. Since the  `CollectObservations()`
-  method calls `VectorSensor.AddObservation()` such that vector size adds up to 8,
-  the Behavior Parameters of the Agent are set with vector observation space
-  with a state size of 8.
-- `Agent.OnActionReceived()` — The action results
-  in a small change in the agent cube's rotation at each step. In this example,
-  an Agent receives a small positive reward for each step it keeps the ball on the
-  agent cube's head and a larger, negative reward for dropping the ball. An
-  Agent's episode is also ended when it drops the ball so that it will reset
-  with a new ball for the next simulation step.
-- `Agent.Heuristic()` - Converts the keyboard inputs into actions.
+- `Agent.OnEpisodeBegin()` — 이 메서드는 에이전트 큐브와 공을 시작 위치로 재설정합니다.
+  훈련이 특정 시작 위치나 에이전트 큐브의 방향에 종속되지 않고 일반화되도록 재설정 값이 무작위로 설정됩니다.
+- `Agent.CollectObservations(VectorSensor sensor)` — 에이전트 큐브의 방향,
+  공의 속도, 그리고 공과 큐브 사이의 상대적인 위치 정보를 수집하여 `VectorSensor.AddObservation()`을 통해 추가합니다.
+  `CollectObservations()` 메서드가 8개의 벡터 크기를 더해 관측 데이터를 생성하므로,
+  이 에이전트의 `Behavior Parameters`에서는 상태 크기를 8로 설정하여 벡터 관측 공간을 정의합니다.
+- `Agent.OnActionReceived()` — 이 메서드는 에이전트 큐브의 회전에 작은 변화를 일으킵니다.
+  예제에서는 에이전트가 공을 큐브 위에 유지하는 동안에는 단계마다 작은 긍정적 보상을 받으며,
+  공을 떨어뜨리면 큰 부정적 보상을 받습니다.
+  공을 떨어뜨릴 경우 에피소드가 종료되며, 이 후 새로운 공으로 다음 시뮬레이션 단계가 시작됩니다.
+- `Agent.Heuristic()` - 키보드 입력을 액션으로 변환하여 수동 제어가 가능하게 합니다.
 
-## Decisions
+## Decisions(결정)
 
-The observation-decision-action-reward cycle repeats each time the Agent request
-a decision. Agents will request a decision when `Agent.RequestDecision()` is
-called. If you need the Agent to request decisions on its own at regular
-intervals, add a `Decision Requester` component to the Agent's GameObject.
-Making decisions at regular step intervals is generally most appropriate for
-physics-based simulations. For example, an agent in a robotic simulator that
-must provide fine-control of joint torques should make its decisions every step
-of the simulation. In games such as real-time strategy, where many agents make
-their decisions at regular intervals, the decision timing for each agent can be
-staggered by setting the `DecisionStep` parameter in the `Decision Requester`
-component for each agent. On the other hand, an agent that only needs to make
-decisions when certain game or simulation events occur, such as in a turn-based
-game, should call `Agent.RequestDecision()` manually.
+**관찰(observation)-결정(decision)-행동(action)-보상(reward)** 주기는 에이전트가 결정을 요청할 때마다 반복됩니다.
+에이전트가 결정을 요청하려면 `Agent.RequestDecision()`을 호출합니다.
+에이전트가 일정한 간격으로 스스로 결정을 요청하도록 하려면, 에이전트의 GameObject에 `Decision Requester` 컴포넌트를 추가하세요.
 
-## Observations and Sensors
-In order for an agent to learn, the observations should include all the
-information an agent needs to accomplish its task. Without sufficient and
-relevant information, an agent may learn poorly or may not learn at all. A
-reasonable approach for determining what information should be included is to
-consider what you would need to calculate an analytical solution to the problem,
-or what you would expect a human to be able to use to solve the problem.
+일정한 스텝 간격으로 결정을 내리는 것은 일반적으로 물리 기반 시뮬레이션에 적합합니다.
+예를 들어, 관절 토크를 세밀하게 조정해야 하는 로봇 시뮬레이터에서 에이전트는 시뮬레이션의 모든 스텝마다 결정을 내려야 합니다.
+실시간 전략 게임과 같이 여러 에이전트가 정기적으로 결정을 내려야 하는 경우, 각 에이전트의 `Decision Requester` 컴포넌트의
+`DecisionStep` 매개변수를 설정하여 결정을 내리는 타이밍을 시차를 두고 조정할 수 있습니다.
+반면에 턴제 게임처럼 특정 게임 또는 시뮬레이션 이벤트가 발생할 때만 결정을 내려야 하는 에이전트는 `Agent.RequestDecision()`을 
+수동으로 호출하는 것이 적절합니다.
+
+## Observations and Sensors(관찰과 센서)
+에이전트가 학습하려면, 관찰에는 에이전트가 자신의 임무를 수행하는데 필요한 모든 정보가 포함되어야 합니다.
+충분하고 관련성 있는 정보가 없다면, 에이전트는 제대로 학습하지 못하거나 전혀 학습하지 못할 수 있습니다.
+어떤 정보를 포함시켜야 하는지 결정하는 합리적인 방법은 문제에 대한 분석적 해결책을 계산하는데 필요한 정보 또는 
+인간이 문제를 해결하기 위해 사용할 수 있을 것으로 예상되는 정보를 고려하는 것입니다.
+
+예를 들어, 게임에서 캐릭터가 목표를 추적하는 작업을 수행해야 한다면 그 캐릭터의 현재 위치, 목표의 위치, 
+장애물의 위치 등과 같은 정보는 중요한 관찰 항목이 될 수 있습니다.
+이를 통해 에이전트는 목표를 향해 효과적으로 움직이는 방법을 학습할 수 있습니다.
 
 ### Generating Observations
 ML-Agents provides multiple ways for an Agent to make observations:
