@@ -147,11 +147,9 @@ public override void CollectObservations(VectorSensor sensor)
 
 추가적으로 Unity Editor에서 에이전트의 `Behavior Parameters`를 설정할 때, **Vector Observations > Space Size**를 `CollectObservations()`에서 작성되는 실수(floats)의 개수와 동일하게 설정해야 합니다.
 
-#### Observable Fields and Properties
-Another approach is to define the relevant observations as fields or properties
-on your Agent class, and annotate them with an `ObservableAttribute`. For
-example, in the Ball3DHardAgent, the difference between positions could be observed
-by adding a property to the Agent:
+#### Observable Fields and Properties(관찰 가능한 필드 및 속성)
+또 다른 접근 방식은 관련된 관찰을 Agent 클래스의 필드나 속성으로 정의하고, 이를 `ObservableAttribute`로 주석 처리하는 것입니다.
+예를 들어, Ball3DHardAgent에서 위치 차이를 관찰하기 위해 Agent에 속성을 추가할 수 있습니다:
 ```csharp
 using Unity.MLAgents.Sensors.Reflection;
 
@@ -167,59 +165,36 @@ public class Ball3DHardAgent : Agent {
     }
 }
 ```
-`ObservableAttribute` currently supports most basic types (e.g. floats, ints,
-bools), as well as `Vector2`, `Vector3`, `Vector4`, `Quaternion`, and enums.
+`ObservableAttribute`는 현재 대부분의 기본 타입(예: float, int, bool)과 `Vector2`, `Vector3`, `Vector4`, `Quaternion` 그리고 열거형(enums)을 지원합니다.
 
-The behavior of `ObservableAttribute`s are controlled by the "Observable Attribute
-Handling" in the Agent's `Behavior Parameters`. The possible values for this are:
- * **Ignore** (default) - All ObservableAttributes on the Agent will be ignored.
-  If there are no ObservableAttributes on the Agent, this will result in the
-  fastest  initialization time.
- * **Exclude Inherited** - Only members on the declared class will be examined;
-  members that are inherited are ignored. This is a reasonable tradeoff between
-  performance and flexibility.
- * **Examine All** All members on the class will be examined. This can lead to
-  slower startup times.
+`ObservableAttribute`의 동작은 에이전트의 `Behavior Parameters`에서 "Observable Attribute
+Handling" 설정에 의해 제어됩니다. 가능한 값은 다음과 같습니다 :
+ * **Ignore** (default) - 에이전트의 모든 `ObservableAttribute`가 무시됩니다. 에이전트에 `ObservableAttribute`가 없다면, 이는 가장 빠른 초기화 시간을 제공합니다.
+ * **Exclude Inherited** - 선언된 클래스의 멤버만 검사하고, 상속된 멤버는 무시됩니다. 이는 성능과 유연성 간의 합리적인 균형을 제공합니다.
+ * **Examine All** - 클래스의 모든 맴버를 검사합니다. 이는 더 느린 시작 시간을 초래할 수 있습니다.
 
-"Exclude Inherited" is generally sufficient, but if your Agent inherits from
-another Agent implementation that has Observable members, you will need to use
-"Examine All".
+"Exclude Inherited"는 일반적으로 충분하지만, 에이전트가 다른 에이전트 구현을 상속받고 해당 구현에 `Observable` 맴버가 있는 경우, "Examine All"을 사용해야 합니다.
 
-Internally, ObservableAttribute uses reflection to determine which members of
-the Agent have ObservableAttributes, and also uses reflection to access the
-fields or invoke the properties at runtime. This may be slower than using
-CollectObservations or an ISensor, although this might not be enough to
-noticeably affect performance.
+내부적으로 ObservableAttribute는 리플렉션을 사용하여 에이전트의 어떤 맴버가 ObservableAttribute를 가지고 있는지 확인하고, 또한 런타임에서 필드를 접근하거나 속성을 호출하는데 리플렉션을 사용합니다. 이는 CollectObservations나 ISensor를 사용하는 것보다 느릴 수 있지만, 성능에 눈에 띄게 영향을 미치지 않을 수 있습니다.
 
-**NOTE**: you do not need to adjust the Space Size in the Agent's
-`Behavior Parameters` when you add `[Observable]` fields or properties to an
-Agent, since their size can be computed before they are used.
+**NOTE**: `[Observable]` 필드나 속성을 에이전트에 추가할 때, 해당 필드나 속성의 크기는 사용되기 전에 계산될 수 있기 때문에 에이전트의 `Behavior Parameters`에서 Space Size를 조정할 필요가 없습니다.
 
-#### ISensor interface and SensorComponents
-The `ISensor` interface is generally intended for advanced users. The `Write()`
-method is used to actually generate the observation, but some other methods
-such as returning the shape of the observations must also be implemented.
+#### ISensor interface and SensorComponents(ISensor 인터페이스와 SensorComponents)
+`ISensor` 인터페이스는 일반적으로 고급 사용자용으로 설계되었습니다. `Write()` 메서드는 실제로 관찰을 생성하는 데 사용되며, 관찰의 형태를 반환하는 등의 다른 메서드도 구현해야 합니다.
 
-The `SensorComponent` abstract class is used to create the actual `ISensor` at
-runtime. It must be attached to the same `GameObject` as the `Agent`, or to a
-child `GameObject`.
+`SensorComponent` 추상 클래스는 런타임에서 실제 `ISensor`를 생성하는 데 사용됩니다.
+이 클래스는 `Agent`와 동일한 `GameObject` 또는 `GameObject`의 자식에 연결되어야 합니다.
 
-There are several SensorComponents provided in the API, including:
-- `CameraSensorComponent` - Uses images from a `Camera` as observations.
-- `RenderTextureSensorComponent` - Uses the content of a `RenderTexture` as
-observations.
-- `RayPerceptionSensorComponent` - Uses the information from set of ray casts
-as observations.
-- `Match3SensorComponent` - Uses the board of a [Match-3 game](Integrations-Match3.md)
-as observations.
-- `GridSensorComponent` - Uses a set of box queries in a grid shape as
-observations.
+API에는 여러 가지 `SensorComponents`가 제공됩니다. 이들에는 다음과 같은 종류가 있습니다 :
+- `CameraSensorComponent` - `Camera`에서 이미지를 사용하여 관찰을 수행합니다.
+- `RenderTextureSensorComponent` - `RenderTexture`의 콘텐츠를 관찰으로 사용합니다.
+- `RayPerceptionSensorComponent` - 설정된 레이 캐스트의 정보를 관찰으로 사용합니다.
+- `Match3SensorComponent` - [Match-3 game](Integrations-Match3.md)의 보드를 관찰으로 사용합니다.
+- `GridSensorComponent` - 그리드 형태로 설정된 박스 쿼리를 사용하여 관찰을 수행합니다.
 
-**NOTE**: you do not need to adjust the Space Size in the Agent's
-`Behavior Parameters` when using `SensorComponents`s.
+**NOTE**: `SensorComponents`를 사용할 때는 Agent의 `Behavior Parameters`에서 Space Size를 조정할 필요가 없습니다.
 
-Internally, both `Agent.CollectObservations` and `[Observable]` attribute use an
-ISensors to write observations, although this is mostly abstracted from the user.
+내부적으로 `Agent.CollectObservations`와 `[Observable]` 속성은 모두 ISensor를 사용하여 관찰 데이터를 기록합니다. 그러나 이는 대부분 사용자에게 추상화되어 있습니다.
 
 ### Vector Observations
 Both `Agent.CollectObservations()` and `ObservableAttribute`s produce vector
