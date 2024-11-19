@@ -105,31 +105,22 @@ Unity에서는 `Agent` 클래스를 확장하여 에이전트를 생성할 수 �
 장애물의 위치 등과 같은 정보는 중요한 관찰 항목이 될 수 있습니다.
 이를 통해 에이전트는 목표를 향해 효과적으로 움직이는 방법을 학습할 수 있습니다.
 
-### Generating Observations
-ML-Agents provides multiple ways for an Agent to make observations:
-  1. Overriding the `Agent.CollectObservations()` method and passing the
-    observations to the provided `VectorSensor`.
-  1. Adding the `[Observable]` attribute to fields and properties on the Agent.
-  1. Implementing the `ISensor` interface, using a `SensorComponent` attached to
-  the Agent to create the `ISensor`.
+### Generating Observations(관찰 생성하기)
+ML-Agents는 에이전트가 관찰을 생성할 수 있는 여러 가지 방법을 제공합니다:
+  1. `Agent.CollectObservations()` 메서드를 재정의하여 제공된 `VectorSensor`에 관찰 데이터를 전달하는 방법.
+  2. 에이전트의 필드와 속성에 `[Observable]` 속성을 추가하는 방법.
+  3. 에이전트에 부착된 `SensorComponent`를 사용하여 `ISensor`를 생성하거나, 직접 `ISensor` 인터페이스를 구현하는 방법.
 
 #### Agent.CollectObservations()
-Agent.CollectObservations() is best used for aspects of the environment which are
-numerical and non-visual. The Policy class calls the
-`CollectObservations(VectorSensor sensor)` method of each Agent. Your
-implementation of this function must call `VectorSensor.AddObservation` to add
-vector observations.
+Agent.CollectObservations()는 숫자형 데이터와 비시각적 환경 측면을 다룰 때 가장 적합합니다.
+에이전트의 정책(Policy) 클래스는 각 에이전트의 `CollectObservations(VectorSensor sensor)` 메서드를 호출하며,
+이 메서드의 구현에서는 `VectorSensor.AddObservation`을 호출하여 벡터 관찰 데이터를 추가해야 합니다.
 
-The `VectorSensor.AddObservation` method provides a number of overloads for
-adding common types of data to your observation vector. You can add Integers and
-booleans directly to the observation vector, as well as some common Unity data
-types such as `Vector2`, `Vector3`, and `Quaternion`.
+`VectorSensor.AddObservation` 메서드는 관찰 벡터에 일반적인 데이터 유형을 추가하기 위한 여러 오버로드를 제공합니다.
+정수(Integers)와 불리언(booleans) 값을 관찰 벡터에 직접 추가할 수 있으며, `Vector2`, `Vector3`, `Quaternion`과 같은
+Unity의 일반적인 데이터 유형도 추가할 수 있습니다.
 
-For examples of various state observation functions, you can look at the
-[example environments](Learning-Environment-Examples.md) included in the
-ML-Agents SDK. For instance, the 3DBall example uses the rotation of the
-platform, the relative position of the ball, and the velocity of the ball as its
-state observation.
+다양한 상태 관찰 함수의 예는 ML-Agents SDK에 포함된 [example environments](Learning-Environment-Examples.md)을 참고할 수 있습니다. 예를 들어, 3DBall 예제에서는 플랫폼의 회전, 공의 상대적인 위치, 공의 속도를 상태 관찰로 사용합니다.
 
 ```csharp
 public GameObject ball;
@@ -147,21 +138,14 @@ public override void CollectObservations(VectorSensor sensor)
 }
 ```
 
-As an experiment, you can remove the velocity components from
-the observation and retrain the 3DBall agent. While it will learn to balance the
-ball reasonably well, the performance of the agent without using velocity is
-noticeably worse.
+실험으로 공의 속도 요소를 관찰에서 제거하고 3DBall 에이전트를 다시 학습시켜 볼 수 있습니다.
+속도를 사용하지 않은 경우에도 에이전트는 공을 어느 정도 균형잡아 유지하도록 학습하겠지만, 성능은 눈에 띄게 저하됩니다.
 
-The observations passed to `VectorSensor.AddObservation()` must always contain
-the same number of elements must always be in the same order. If the number
-of observed entities in an environment can vary, you can pad the calls
-with zeros for any missing entities in a specific observation, or you can limit
-an agent's observations to a fixed subset. For example, instead of observing
-every enemy in an environment, you could only observe the closest five.
+`VectorSensor.AddObservation()`에 전달되는 관찰 데이터는 항상 동일한 요소 개수를 가져야 하며, 항상 동일한 순서를 유지해야 합니다.
+만약 환경 내에서 관찰해야 할 개체 수가 가변적이라면, 특정 관찰에서 누락된 개체를 0으로 채워서 데이터를 패딩하거나, 에이전트의 관찰을 고정된 하위 집합으로 제한할 수 있습니다.
+예를 들어, 환경 내 모든 적을 관찰하는 대신 가장 가까운 5개의 적만 관찰하도록 설정할 수 있습니다.
 
-Additionally, when you set up an Agent's `Behavior Parameters` in the Unity
-Editor, you must set the **Vector Observations > Space Size**
-to equal the number of floats that are written by `CollectObservations()`.
+추가적으로 Unity Editor에서 에이전트의 `Behavior Parameters`를 설정할 때, **Vector Observations > Space Size**를 `CollectObservations()`에서 작성되는 실수(floats)의 개수와 동일하게 설정해야 합니다.
 
 #### Observable Fields and Properties
 Another approach is to define the relevant observations as fields or properties
